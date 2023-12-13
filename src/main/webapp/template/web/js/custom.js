@@ -1,4 +1,11 @@
 //preloading for page
+var overlay = $(".overlay");
+var loginct = $( "#login-content" );
+var loginWrap = $(".login-wrapper");
+
+loginWrap.each( function(){
+	$(this).wrap('<div class="overlay"></div>')
+});
 $(window).on('load', function() { // makes sure the whole site is loaded 
 	var status = $('#status');
 	var preloader = $('#preloader');
@@ -12,6 +19,22 @@ $(window).on('load', function() { // makes sure the whole site is loaded
 			vidDefer[i].setAttribute('src',vidDefer[i].getAttribute('data-src'));
 		} 
 	}
+	var currentUrl = window.location.href;	
+	if(currentUrl.includes("login")) {		
+    	loginct.parents(overlay).addClass("openform");    	
+    	$(document).on('click', function(e){
+    		var target = $(e.target);
+    		if ($(target).hasClass("overlay")){
+    				$(target).find(loginct).each( function(){
+    					$(this).removeClass("openform");
+    				});
+    				setTimeout( function(){
+    					$(target).removeClass("openform");
+    				}, 350);
+    			}	
+    	});
+	}
+	
 })
 $(function(){
 	'use strict';
@@ -444,13 +467,9 @@ $(function(){
 	//==js for login and sign up
 	var loginLink = $(".loginLink");
 	var signupLink = $(".signupLink");
-	var loginct = $( "#login-content" );
+	
 	var signupct= $("#signup-content");
-	var loginWrap = $(".login-wrapper");
-	var overlay = $(".overlay");
-	loginWrap.each( function(){
-		$(this).wrap('<div class="overlay"></div>')
-	});
+
 	//pop up for login form
     loginLink.on('click', function(event){
     	event.preventDefault();
@@ -467,6 +486,8 @@ $(function(){
 			}	
 		});
     });
+   
+    
     //pop up for signup form
     signupLink.on('click', function(event){
     	event.preventDefault();

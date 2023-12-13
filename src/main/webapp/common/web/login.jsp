@@ -7,18 +7,28 @@
     <div class="login-content">
         <a href="#" class="close">x</a>
         <h3>Login</h3>
-        <form method="post" action="#">
+        <c:if test="${param.incorrectAccount != null}">
+        	<div class="alert alert-danger">	
+				Username or password incorrect
+			</div>
+        </c:if>
+        <c:if test="${param.sessionTimeout != null}">
+        	<div class="alert alert-danger">	
+				Session Timeout
+			</div>
+        </c:if>
+        <form method="post" action="j_springSecurity_checkLogin">
         	<div class="row">
         		 <label for="username">
                     Username:
-                    <input type="text" name="username" id="username" placeholder="Hugh Jackman" pattern="^[a-zA-Z][a-zA-Z0-9-_\.]{8,20}$" required="required" />
+                    <input type="text" name="j_username" id="username" placeholder="Hugh Jackman" pattern="^[a-zA-Z][a-zA-Z0-9-_\.]{8,20}$" required="required" />
                 </label>
         	</div>
            
             <div class="row">
             	<label for="password">
                     Password:
-                    <input type="password" name="password" id="password" placeholder="******" pattern="(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$" required="required" />
+                    <input type="password" name="j_password" id="password" placeholder="******" required="required" />
                 </label>
             </div>
             <div class="row">

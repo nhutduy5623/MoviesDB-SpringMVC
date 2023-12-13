@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
+<%@ page import="com.laptrinhweb.util.SecurityUtil" %>
 <!-- BEGIN | Header -->
 <header class="ht-header full-width-hd">
 		<div class="row">
@@ -101,8 +101,18 @@
 								<li class="it-last"><a href="comingsoon.html">Coming soon</a></li>
 							</ul>
 						</li>                
-						<li><a href="#">Help</a></li>
-						<li class="btn signupLink"><a href="#">LogOut</a></li>
+						
+						<security:authorize access="isAuthenticated()">
+						<li class=" dropdown first ">						
+							<a class="btn btn-default dropdown-toggle lv1" data-toggle="dropdown" data-hover="dropdown">
+							Wellcome, <%= SecurityUtil.getPrincipal().getFullName() %><i class="fa fa-angle-down" aria-hidden="true"></i>
+							</a>
+							<ul class="dropdown-menu level1">
+								<li><a href="landing.html">Landing</a></li>
+							</ul>
+						</li>      
+							<li class="btn"><a href="<c:url value='/logout'/>">Logout</a></li>
+						</security:authorize>	
 					</ul>
 				</div>
 			<!-- /.navbar-collapse -->

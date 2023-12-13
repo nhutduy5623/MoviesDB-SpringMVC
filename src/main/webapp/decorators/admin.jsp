@@ -18,7 +18,7 @@
 	<!-- Mobile specific meta -->
 	<meta name=viewport content="width=device-width, initial-scale=1">
 	<meta name="format-detection" content="telephone-no">
-	
+
 	<!-- CSS files -->
 	<link rel="stylesheet" href="<c:url value='/template/web/css/plugins.css'/>">
 	<link rel="stylesheet" href="<c:url value='/template/web/css/style.css'/>">
@@ -38,9 +38,15 @@
 	<%@include file="/common/web/footer.jsp"%>
 	<!--Header-->
 
+
+	
+
 	<script src="<c:url value='/template/web/js/jquery.js'/>"></script>
 	<script src="<c:url value='/template/web/js/plugins.js'/>"></script>
 	<script src="<c:url value='/template/web/js/plugins2.js'/>"></script>
 	<script src="<c:url value='/template/web/js/custom.js'/>"></script>
+	
+	
+
 </body>
 </html>
