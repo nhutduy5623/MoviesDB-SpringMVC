@@ -45,6 +45,8 @@
 		<dispatcher>ERROR</dispatcher>
 	</filter-mapping>
 
+	
+
 	<!-- sitemesh filter -->
 	<filter>
 		<filter-name>sitemesh</filter-name>

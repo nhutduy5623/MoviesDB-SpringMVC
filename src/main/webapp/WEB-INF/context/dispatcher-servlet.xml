@@ -34,5 +34,16 @@
 
 	</bean>
 	
+
+	
 	<mvc:resources mapping="/template/**" location="/template/" />
+	
+	
+	<!-- Thêm cấu hình Interceptor -->
+    <mvc:interceptors>
+		<mvc:interceptor>
+			<mvc:mapping path="/admin/*" />
+			<bean class="com.laptrinhweb.interceptor.AuthorizationInterceptor"></bean>
+		</mvc:interceptor>
+	</mvc:interceptors>
 </beans>

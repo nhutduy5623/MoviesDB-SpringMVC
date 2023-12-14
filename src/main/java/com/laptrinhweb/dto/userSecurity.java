@@ -21,13 +21,15 @@ public class userSecurity extends User{
 		// TODO Auto-generated constructor stub
 	}
 	
-	public userSecurity(String username, String password, String fullName, boolean enabled, boolean accountNonExpired,
+	public userSecurity(Long id, String username, String password, String fullName, boolean enabled, boolean accountNonExpired,
 			boolean credentialsNonExpired, boolean accountNonLocked,
 			Collection<? extends GrantedAuthority> authorities) {
 		super(username, password, enabled, accountNonExpired, credentialsNonExpired, accountNonLocked, authorities);
 		this.fullName = fullName;
+		this.id = id;
 	}
-
+	
+	private Long id;
 	private String fullName;
 	
 	
@@ -39,6 +41,16 @@ public class userSecurity extends User{
 	public void setFullName(String fullName) {
 		this.fullName = fullName;
 	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+	
+	
 	
 	
 }
