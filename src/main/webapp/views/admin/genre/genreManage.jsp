@@ -3,6 +3,7 @@
 <!-- page title area start -->
 <%@include file="/common/taglib.jsp"%>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@7.29.2/dist/sweetalert2.min.css">
+<link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <style>
       table {
         border-collapse: collapse;
@@ -11,6 +12,10 @@
       }
       table td {
         word-wrap: break-word;
+      }
+      tr th{
+      	align-items: center;
+      	text-align: center;
       }
     </style>
 <div class="page-title-area">
@@ -63,7 +68,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <c:forEach var="item" items="${listResults}">
+                                <c:forEach var="item" items="${model.listResults}">
                                 	<tr>
 	                                    <td>${item.code}</td>
 	                                    <td>${item.name}</td>
@@ -77,32 +82,60 @@
 	                                   			<a href="genre/edit?id=${item.id}"><i class="fa fa-wrench"></i>Edit</a>
 	                                    	</div>
 	                                    	<div class="fw-icons" id="${item.id}">
-	                                    		<a href="#" id="${item.id}" class="btnDelete" onclick="warningBeforeDelete(${item.id})"><i class="fa fa-trash"></i>Delete</a>
-	                                    	</div>		       
-	                                    	                            
+	                                    		<a href="#" class="btnDelete" onclick="onClickBtnDelete()"  id="btnDelete_${item.id}"><i class="fa fa-trash"></i>Delete</a>
+	                                    	</div>                            
 	                                    </td>
                                 	</tr>  
                                 </c:forEach>                              
                             </tbody>
                         </table>
                     </div>
+                    <!-- Pagination -->
+                    <div style="width: 100%; display: flex; justify-content: space-between; align-items: center">
+                    	<form id="formChangePage" action="genre" method="get" style="height: 50%; margin: auto 0;">
+                    		Max page item:
+	                		<select class="form-control" name="limit" id="maxPageItem" style="width: 100%; height: 100%">
+	                               <option value="2">2</option>
+	                               <option value="5" selected="selected">5</option>
+	                               <option value="10">10</option>
+	                               <option value="20">20</option>
+	                        </select>
+	                		<input type="hidden" value="${model.nextPage}" name="page" id="nextPage" /> 
+                		</form>
+                    	<ul class="pagination" id="pagination1" style="right: 1px; position: relative;"></ul>
+                    </div>
+                	
                 </div>
             </div>
         </div>
         <!-- data table end -->
-         <ul class="pagination" id="pagination1"></ul>
+         
     </div>
    	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@7.29.2/dist/sweetalert2.min.js"></script>
    	<script src="http://code.jquery.com/jquery-1.12.4.min.js"></script>
    	<script src="<c:url value='/template/paging/jq-paginator.js'/>"></script>
     <script type="text/javascript">
-		$.jqPaginator('#pagination1', {
-			totalPages : 5,
-			visiblePages : 5,
-			currentPage : 1,
-			onPageChange : function(nextPage, type) {
+    var totalPages = ${model.totalPages};
+	var currentPage = ${model.nextPage};
+	var maxPageItem = ${model.limit};  
+	$("#maxPageItem").val(maxPageItem).change();
+	
+	$.jqPaginator('#pagination1', {
+		totalPages : totalPages,
+		visiblePages : 5,
+		currentPage : currentPage,
+		onPageChange : function(nextPage, type) {			
+			if (type != "init") {
+				$("#nextPage").val(nextPage);	
+				$("#formChangePage").submit();
 			}
-		});
+		}
+	});	
+	$('#maxPageItem').on('change', function (e) {
+		$("#nextPage").val(1);
+		$("#formChangePage").submit();			
+	});
+		
 		
 		
 		
@@ -110,8 +143,12 @@
 	</script>
 	<c:url var="restAPI_URL" value="/api/admin/genre"/>
 	<script type="text/javascript">
-	function warningBeforeDelete(id) {
-			swal({
+
+	$(".btnDelete").click(function(e){
+		e.preventDefault();
+		var idElement = $(this).attr('id');
+		var id = idElement.split("btnDelete_")[1];
+		swal({
 			  title: "Xác nhận xóa",
 			  text: "Bạn có chắc chắn muốn xóa hay không",
 			  type: "warning",
@@ -120,11 +157,18 @@
 			  cancelButtonClass: "btn-danger",
 			  confirmButtonText: "Xác nhận",
 			  cancelButtonText: "Hủy bỏ",
-			}).then(function(isConfirm) {
-			  if (isConfirm['value']) {
-				  deleteElement(id)
+			}).then(function(isConfirm) {				
+			  if (isConfirm['value']) {	
+				  var data={};
+				  ids = [];
+				  ids.push(id);	
+				  deleteElement(ids)
 			  } 
 			});
+	})
+	
+	function warningBeforeDelete(id) {
+			
 		} 
 		function deleteElement(data) {
 		    $.ajax({
@@ -133,7 +177,7 @@
 		        contentType: 'application/json',
 		        data: JSON.stringify(data),
 		        success: function (result) {
-		            window.location.href = "${newURL}?page=1&limit=2&message=delete_success";
+		            window.location.href = "${newURL}?page="+currentPage+"&limit="+maxPageItem+"&message=delete_success";
 		        },
 		        error: function (error) {
 		        	console.log(error)

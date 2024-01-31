@@ -13,15 +13,13 @@
 		<springsecurity.version>3.2.8.RELEASE</springsecurity.version>
 		<jsp.api.version>2.3.1</jsp.api.version>
 		<jstl.version>1.2</jstl.version>
-<<<<<<< Updated upstream
-=======
 		<hibernate.version>5.4.32.Final</hibernate.version>
 		<spring.data>1.11.23.RELEASE</spring.data>
 		<mysql.version>8.0.13</mysql.version>
->>>>>>> Stashed changes
 		<maven.compiler.source>1.8</maven.compiler.source>
 		<maven.compiler.target>1.8</maven.compiler.target>
 	</properties>
+
 
 	<dependencies>
 		<!-- Spring -->
@@ -61,8 +59,6 @@
 			<version>${springframework.version}</version>
 		</dependency>
 
-<<<<<<< Updated upstream
-=======
 
 		<!-- spring security -->
 		<dependency>
@@ -96,7 +92,6 @@
 			<version>${springframework.version}</version>
 		</dependency>
 
->>>>>>> Stashed changes
 		<!-- servlet api -->
 		<dependency>
 			<groupId>javax.servlet</groupId>
@@ -125,9 +120,6 @@
 			<artifactId>sitemesh</artifactId>
 			<version>2.4.2</version>
 		</dependency>
-<<<<<<< Updated upstream
-	</dependencies>
-=======
 
 		<!-- Thư viện Mysql Driver -->
 		<!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java -->
@@ -209,7 +201,6 @@
 	</dependencies>
 
 
->>>>>>> Stashed changes
 
 	<build>
 		<plugins>

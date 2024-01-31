@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -44,8 +45,10 @@ public class GenreService implements IGenreService {
 
 	@Override
 	@Transactional
-	public void delete(Long id) {
-		genreRepository.delete(id);	
+	public void delete(Long[] ids) {
+		for(Long id: ids) {
+			genreRepository.delete(id);
+		}	
 	}
 
 	@Override
@@ -57,11 +60,26 @@ public class GenreService implements IGenreService {
 		}
 		return genreDTOs;
 	}
+	
+	@Override
+	public List<GenreDTO> findAll(Pageable pageable) {
+		List<GenreEntity> genreEntities = genreRepository.findAll(pageable).getContent();
+		List<GenreDTO> genreDTOs = new ArrayList<>();
+		for(GenreEntity genreEntity : genreEntities) {
+			genreDTOs.add(genreCovert.toDTO(genreEntity));
+		}
+		return genreDTOs;
+	}
 
 	@Override
 	public GenreDTO findOne(Long id) {
 		GenreDTO genreDTO = genreCovert.toDTO(genreRepository.findOne(id));
 		return genreDTO;
+	}
+
+	@Override
+	public Integer countAll() {
+		return (int) genreRepository.count();
 	}
 	
 }

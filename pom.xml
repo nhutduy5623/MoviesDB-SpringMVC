@@ -59,8 +59,6 @@
 			<version>${springframework.version}</version>
 		</dependency>
 
-<<<<<<< Updated upstream
-=======
 
 		<!-- spring security -->
 		<dependency>
@@ -94,7 +92,6 @@
 			<version>${springframework.version}</version>
 		</dependency>
 
->>>>>>> Stashed changes
 		<!-- servlet api -->
 		<dependency>
 			<groupId>javax.servlet</groupId>
@@ -123,10 +120,6 @@
 			<artifactId>sitemesh</artifactId>
 			<version>2.4.2</version>
 		</dependency>
-<<<<<<< Updated upstream
-	</dependencies>
-
-=======
 
 		<!-- Thư viện Mysql Driver -->
 		<!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java -->
@@ -209,7 +202,6 @@
 
 
 
->>>>>>> Stashed changes
 	<build>
 		<plugins>
 			<plugin>

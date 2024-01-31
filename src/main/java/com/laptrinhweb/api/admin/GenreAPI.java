@@ -30,7 +30,7 @@ public class GenreAPI {
 	}
 	
 	@DeleteMapping("/api/admin/genre") 
-	public void deleteGenre(@RequestBody Long id) {
-		genreService.delete(id);	
+	public void deleteGenre(@RequestBody Long[] ids) {
+		genreService.delete(ids);	
 	}
 }

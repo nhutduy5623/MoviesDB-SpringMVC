@@ -3,7 +3,7 @@ package com.laptrinhweb.dto;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GenreDTO extends AbstractDTO {
+public class GenreDTO extends AbstractDTO<GenreDTO> {
 	private String code;
 	private String name;
 	private String thumbnail;

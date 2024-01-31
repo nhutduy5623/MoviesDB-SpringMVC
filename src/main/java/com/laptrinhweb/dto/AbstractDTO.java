@@ -1,13 +1,19 @@
 package com.laptrinhweb.dto;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
-public class AbstractDTO {
+public class AbstractDTO<T> {
 	private Long id;
 	private Date createdDate;
 	private Date modifiedDate;
 	private String createdBy;
 	private String modifiedBy;
+	private List<T> listResults = new ArrayList<>();	
+	private Integer totalPages=1;
+	private Integer nextPage = 1;
+	private Integer limit = 4;	
 	
 	public Long getId() {
 		return id;
@@ -39,5 +45,30 @@ public class AbstractDTO {
 	public void setModifiedBy(String modifiedBy) {
 		this.modifiedBy = modifiedBy;
 	}
-
+	public List<T> getListResults() {
+		return listResults;
+	}
+	public void setListResults(List<T> listResults) {
+		this.listResults = listResults;
+	}
+	public Integer getTotalPages() {
+		return totalPages;
+	}
+	public void setTotalPages(Integer totalPages) {
+		this.totalPages = totalPages;
+	}
+	public Integer getNextPage() {
+		return nextPage;
+	}
+	public void setNextPage(Integer nextPage) {
+		this.nextPage = nextPage;
+	}
+	public Integer getLimit() {
+		return limit;
+	}
+	public void setLimit(Integer limit) {
+		this.limit = limit;
+	}
+	
+	
 }

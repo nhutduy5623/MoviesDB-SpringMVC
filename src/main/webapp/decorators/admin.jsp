@@ -15,6 +15,7 @@
     <link rel="stylesheet" href="<c:url value='/template/admin/assets/css/metisMenu.css'/>">
     <link rel="stylesheet" href="<c:url value='/template/admin/assets/css/owl.carousel.min.css'/>">
     <link rel="stylesheet" href="<c:url value='/template/admin/assets/css/slicknav.min.css'/>">
+    
     <!-- amchart css -->
     <link rel="stylesheet" href="https://www.amcharts.com/lib/3/plugins/export/export.css" type="text/css" media="all" />
     <!-- others css -->
@@ -29,8 +30,9 @@
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.jqueryui.min.css">
     
+    <!-- Paging -->
     <script src="<c:url value='/template/paging/jquery.twbsPagination.js' />"></script>
-    
+    <link href="http://www.jqueryscript.net/css/jquerysctipttop.css" rel="stylesheet" type="text/css">
     <!-- modernizr css -->
     <script src="<c:url value='/template/admin/assets/js/vendor/modernizr-2.8.3.min.js'/>"></script>
     
@@ -91,7 +93,7 @@
     
     <!-- Paging -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-    
+    <script src="<c:url value='/template/paging/jquery.twbsPagination.js' />"></script>
      
     <!-- Start datatable js -->
     <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js"></script>
