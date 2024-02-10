@@ -3,11 +3,12 @@ package com.laptrinhweb.dto;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SubGenreDTO extends AbstractDTO{
+public class SubGenreDTO extends AbstractDTO<SubGenreDTO>{
 	
 	private String code;
 	private String name;
 	private String thumbnail;
+	private String shortDescription;
 	private List<String> genreCodeList = new ArrayList<>();
 	
 	public String getCode() {
@@ -34,7 +35,10 @@ public class SubGenreDTO extends AbstractDTO{
 	public void setGenreCodeList(List<String> genreCodeList) {
 		this.genreCodeList = genreCodeList;
 	}
-	
-	
-	
+	public String getShortDescription() {
+		return shortDescription;
+	}
+	public void setShortDescription(String shortDescription) {
+		this.shortDescription = shortDescription;
+	} 	
 }

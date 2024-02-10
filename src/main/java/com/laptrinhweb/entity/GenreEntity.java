@@ -24,7 +24,7 @@ public class GenreEntity extends baseEntity{
 	@Column(name = "thumbnail", length = 510)
 	private String thumbnail;
 	
-	@ManyToMany(mappedBy = "genreList", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@ManyToMany(mappedBy = "genreList",fetch = FetchType.LAZY)
 	private List<SubGenreEntity> subGenreList = new ArrayList<>();
 	
 	@OneToMany(mappedBy = "genre")

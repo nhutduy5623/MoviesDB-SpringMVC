@@ -5,11 +5,12 @@
              xsi:schemaLocation="http://www.springframework.org/schema/beans
             http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
             http://www.springframework.org/schema/security
-            http://www.springframework.org/schema/security/spring-security-3.2.xsd">            
+            http://www.springframework.org/schema/security/spring-security-3.2.xsd">  
+    <http pattern="/uploads/**" security="none"/>          
     <http auto-config="false" use-expressions="true" disable-url-rewriting="true">
-    
     	
-    
+    	<!-- Cho phép các người dùng truy cập vào File tĩnh ở folder uploads -->
+    	<intercept-url pattern="/uploads*" access="permitAll" />
     	<access-denied-handler error-page="/accessDenied" />
         <form-login  login-page="/login"
                      username-parameter="j_username"

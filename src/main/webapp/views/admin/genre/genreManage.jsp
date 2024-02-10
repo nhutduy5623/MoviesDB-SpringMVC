@@ -60,10 +60,8 @@
                                 	<th>Code</th>
                                     <th>Name</th>
                                     <th>ThumbNail</th>
-                                    <th>Create By</th>
-                                    <th>Create Date</th>
+                                    <th>SubGenre</th>
                                     <th>Modified By</th>
-                                    <th>Modified Date</th>
                                     <th>Tool</th>
                                 </tr>
                             </thead>
@@ -72,11 +70,13 @@
                                 	<tr>
 	                                    <td>${item.code}</td>
 	                                    <td>${item.name}</td>
-	                                    <td><img style="padding: 10%; border-radius: 1%" src="${item.thumbnail}"></td>
-	                                    <td>${item.createdBy}</td>
-	                                    <td>${item.createdDate}</td>
+	                                    <td><img style="padding: 10%; border-radius: 1%" src="<c:url value='${item.thumbnail}' />"></td>
+	                                    <td>
+	                                     <c:forEach var="subGenre" items="${item.subGenreCodeList}">
+		                                    	<a href="subgenre?search=${subGenre}">${subGenre},</a>
+		                                    </c:forEach>
+	                                    </td>
 	                                    <td>${item.modifiedBy}</td>
-	                                    <td>${item.modifiedDate}</td>
 	                                    <td >
 	                                   		<div class="fw-icons">
 	                                   			<a href="genre/edit?id=${item.id}"><i class="fa fa-wrench"></i>Edit</a>
@@ -101,10 +101,10 @@
 	                               <option value="20">20</option>
 	                        </select>
 	                		<input type="hidden" value="${model.nextPage}" name="page" id="nextPage" /> 
+                			<input type="hidden" value="${model.searchValue}" name="search" id="searchValue"/>
                 		</form>
                     	<ul class="pagination" id="pagination1" style="right: 1px; position: relative;"></ul>
                     </div>
-                	
                 </div>
             </div>
         </div>
@@ -134,13 +134,18 @@
 	$('#maxPageItem').on('change', function (e) {
 		$("#nextPage").val(1);
 		$("#formChangePage").submit();			
-	});
-		
-		
-		
-		
-		
+	});		
 	</script>
+	
+	
+	<!-- Search -->
+	<script type="text/javascript">
+	$("#formSearchInput").attr('action')="genre";
+	</script>
+	
+	
+	
+	<!-- Delete -->
 	<c:url var="restAPI_URL" value="/api/admin/genre"/>
 	<script type="text/javascript">
 

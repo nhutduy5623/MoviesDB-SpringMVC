@@ -28,7 +28,7 @@ public class SubGenreEntity extends baseEntity {
 	@Column(name = "shortdescription", columnDefinition = "TEXT")
 	private String shortDescription;
 
-	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(name = "subgenre_genre", 
 				joinColumns = @JoinColumn(name = "subgenreid"), 
 				inverseJoinColumns = @JoinColumn(name = "genreid"))

@@ -11,9 +11,9 @@
 				<span></span> <span></span> <span></span>
 			</div>
 			<div class="search-box pull-left">
-				<form action="#">
-					<input type="text" name="search" placeholder="Search..." required>
-					<i class="ti-search"></i>
+				<form action="#" id="formSearchInput">
+					<input type="text" name="search" id="searchInput" value="${model.searchValue}" placeholder="Search...">
+					<i class="ti-search" id="btnSearch"></i>
 				</form>
 			</div>
 		</div>

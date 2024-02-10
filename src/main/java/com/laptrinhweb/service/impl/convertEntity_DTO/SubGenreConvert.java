@@ -22,9 +22,13 @@ public class SubGenreConvert {
 	ModelMapper modelMapper;
 	
 	public SubGenreEntity toEntity(SubGenreDTO subGenreDTO) {
-		//Loại bỏ mapper ListGenre
-		modelMapper.createTypeMap(SubGenreDTO.class, SubGenreEntity.class)
-        .addMappings(mapping -> mapping.skip(SubGenreEntity::setGenreList));
+		try {
+			//Loại bỏ mapper ListGenre
+			modelMapper.createTypeMap(SubGenreDTO.class, SubGenreEntity.class)
+	        .addMappings(mapping -> mapping.skip(SubGenreEntity::setGenreList));
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
 		
 		SubGenreEntity subGenreEntity = modelMapper.map(subGenreDTO, SubGenreEntity.class);
 		for (String genreCode : subGenreDTO.getGenreCodeList()) {

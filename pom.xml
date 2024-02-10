@@ -131,11 +131,8 @@
 
 
 		<!-- JPA, Hibernate, persistence -->
-		<!--<dependency>
-			<groupId>javax.persistence</groupId>
-			<artifactId>javax.persistence-api</artifactId>
-			<version>2.2</version>
-		</dependency>-->
+		<!--<dependency> <groupId>javax.persistence</groupId> <artifactId>javax.persistence-api</artifactId> 
+			<version>2.2</version> </dependency> -->
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-core</artifactId>
@@ -203,6 +200,7 @@
 
 
 	<build>
+	<pluginManagement>
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -213,7 +211,57 @@
 					<target>1.8</target>
 				</configuration>
 			</plugin>
+
+			<!-- Plugin Antrun để tạo thư mục uploads 
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-antrun-plugin</artifactId>
+				<version>1.8</version>
+				<executions>
+					<execution>
+						<id>create-uploads-directory</id>
+						<phase>process-resources</phase>
+						<goals>
+							<goal>run</goal>
+						</goals>
+						<configuration>
+							<tasks>
+								<mkdir
+									dir="${project.build.directory}/${project.build.finalName}/images" />
+							</tasks>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>-->
+
+			<!-- Plugin Maven Resources để copy tệp -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-resources-plugin</artifactId>
+				<version>3.2.0</version>
+				<executions>
+					<execution>
+						<id>copy-resources</id>
+						<phase>package</phase>
+						<goals>
+							<goal>copy-resources</goal>
+						</goals>
+						<configuration>
+							<outputDirectory>${project.build.directory}/${project.build.finalName}/images</outputDirectory>
+							<resources>
+								<resource>
+									<directory>${project.basedir}/uploads</directory>
+									<includes>
+										<include>**/*</include>
+									</includes>
+								</resource>
+							</resources>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
 		</plugins>
+		</pluginManagement>
 	</build>
 
 

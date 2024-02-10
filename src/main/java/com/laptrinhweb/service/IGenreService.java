@@ -1,6 +1,7 @@
 package com.laptrinhweb.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.data.domain.Pageable;
 
@@ -13,4 +14,7 @@ public interface IGenreService {
 	List<GenreDTO> findAll(Pageable pageable);
 	GenreDTO findOne(Long id);
 	Integer countAll();
+	List<GenreDTO> findByNamePageable(String name, Pageable pageable);
+	Integer countByName(String name);
+	Map<String, String> findAll_HasMap();
 }

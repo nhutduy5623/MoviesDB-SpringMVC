@@ -14,6 +14,7 @@ public class AbstractDTO<T> {
 	private Integer totalPages=1;
 	private Integer nextPage = 1;
 	private Integer limit = 4;	
+	private String searchValue;
 	
 	public Long getId() {
 		return id;
@@ -69,6 +70,11 @@ public class AbstractDTO<T> {
 	public void setLimit(Integer limit) {
 		this.limit = limit;
 	}
-	
-	
+	public String getSearchValue() {
+		return searchValue;
+	}
+	public void setSearchValue(String searchValue) {
+		this.searchValue = searchValue;
+	}
+		
 }

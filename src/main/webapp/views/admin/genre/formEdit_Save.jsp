@@ -1,6 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@include file="/common/taglib.jsp"%>    
+<style>
+.checkBoxListSubGenre > span{
+	margin: 0 1%; 
+}
+</style>
 <div class="main-content-inner">
     <div class="row">
         <div class="col-12 mt-5">
@@ -8,22 +13,24 @@
                 <!-- Textual inputs start -->
                 <div class="col-12 mt-5">
                     <div class="card">
-                        <form class="card-body" id="form-edit-save"> 
+                        <form:form class="card-body" role="form" id="form-edit-save" modelAttribute="model"> 
                             <h4 class="header-title title">Save Genre</h4>
                             <div class="form-group">
                                 <label for="code" class="col-form-label">Genre Code</label>
-                                <input class="form-control" type="text" name="code" id="code" value="${model.code}">
+                                <form:input path="code" id="code" cssClass="form-control"/>
+                                <!-- <input class="form-control" type="text" name="code" id="code" value="${model.code}"> -->
                             </div>
                             <div class="form-group">
                                 <label for="name" class="col-form-label">Genre Name</label>
-                                <input class="form-control" type="text" name="name" id="name" value="${model.name}">
+                                <form:input path="name" id="name" cssClass="form-control"/>
+                                <!-- <input class="form-control" type="text" name="name" id="name" value="${model.name}"> -->
                             </div>
                             <label for="example-email-input" class="col-form-label">Genre Thumbnail (URL or UploadFile)</label>
                             <div class="form-group mb-3 changeTypeInputThumbnail" style="display: flex; flex-direction: row; flex-wrap: nowrap;">
 	                            <div>
 	                            	<button class="btn btn-outline-secondary btn_changeTypeInputThumbnail" type="button"> With URL <i class="fa fa-exchange"></i></button>
 	                            </div>
-	                            <div class="form-group" style="width: 100%">
+	                            <div class="form-group" style="width: 100%; margin-bottom: 0%">
 		                            <input type="text" class="form-control" id="thumbnail1" value="${model.thumbnail}">
 	                        	</div>
 	                        </div>
@@ -32,13 +39,17 @@
 	                            	<button class="btn btn-outline-secondary btn_changeTypeInputThumbnail" type="button"> With UploadFile <i class="fa fa-exchange"></i></button>
 	                            </div>
 	                            <div class="custom-file">
-		                            <input type="file" class="custom-file-input" id="thumbnail2">
+		                            <input type="file" class="custom-file-input" id="thumbnail2" name="thumbnail2">
 		                            <label class="custom-file-label" for="thumbnail">Choose file</label>
 	                        	</div>
 	                        </div>
+	                        <label for="example-email-input" class="col-form-label">SubGenres</label>
+	                        <div class="form-group checkBoxListSubGenre" style="display: flex; flex-wrap: wrap">		                        
+		                        <form:checkboxes items="${subGenreCodeList}" path="subGenreCodeList"/>
+	                        </div>
 	                        <div class="form-group" style="display: flex; justify-content: flex-end;"><button class="btn btn-primary btnSave_Edit" id="btnSave_Edit" type="button">Submit form</button></div>
                             <input type="hidden" name="id" value="${model.id}"> 
-                        </form>
+                        </form:form>
                     </div>
                 </div>
                 <!-- Textual inputs end -->
@@ -50,6 +61,8 @@
     <c:url var="listURL" value="/admin/genre"/>
 	<c:url var="formURL" value="/admin/genre/edit"/>
 	<c:url var="restAPI_URL" value="/api/admin/genre"/>
+	<c:url var="Upload_URL" value="/api/admin/UploadFile"/>
+	<c:url var="UploadImg_URL" value="/uploads/"/>
     <script>
 	    $(".btn_changeTypeInputThumbnail").click(function(){
 	    	$(".btn_changeTypeInputThumbnail").parent().parent().show();
@@ -84,19 +97,33 @@
 	    	e.preventDefault();
 		    var data = {};
 		    var formData = $('#form-edit-save').serializeArray();
+		    console.log("FormData: "+formData[3].value)
 		    $.each(formData, function (i, v) {
 	            data[""+v.name+""] = v.value;	
 		    })
 		    data["thumbnail"] = $("#thumbnail1").val();	
-		    if($("#thumbnail1").val()=="")		    	
+		    if($("#thumbnail1").val()!="")		    	
 		    	data["thumbnail"] = $("#thumbnail1").val();	
+		    else {
+		    	thumbnail = $("#thumbnail2")[0].files[0].name;
+		    	data["thumbnail"] = "/images/"+thumbnail;
+		    }
+		    
+		    var subGenreCodeList = $('input[type=checkbox]:checked').map(function () {
+	            return $(this).val();
+	        }).get();
+		    console.log("subGenreCodeList: "+subGenreCodeList)	
+		    data["subGenreCodeList"] = subGenreCodeList;
+		    var formData = new FormData();
+			formData.append('fileName', $("#thumbnail2")[0].files[0]);
+		    uploadFile(formData)
 	    	if(id == false)
 	 	    	save(data);	 	     
 	 	    else 
-	 	    	edit(data);		    	    	
+	 	    	edit(data);	    	    	
 	    });
 	    
-		function save(data){
+		function save(data){			
 			$.ajax({
 		    	url: '${restAPI_URL}',
 		        type: 'POST',
@@ -127,6 +154,19 @@
 		        }
 		    });
 		};
-	    
+	    function uploadFile(formData) {
+	    	$.ajax({
+				url: '${Upload_URL}',
+				type: 'POST',
+				contentType: false,
+				processData: false,
+				data: formData,
+				success: function(result) {
+				},
+				error: function (error) {
+					console.log(error)
+				}
+			})
+	    }
 	</script>
 </div>
