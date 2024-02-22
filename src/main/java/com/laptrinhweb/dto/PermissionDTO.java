@@ -3,7 +3,7 @@ package com.laptrinhweb.dto;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PermissionDTO extends AbstractDTO{
+public class PermissionDTO extends AbstractDTO<PermissionDTO>{
 	private String code;
 	private String name;
 	private String disription;

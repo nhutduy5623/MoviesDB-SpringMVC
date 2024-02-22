@@ -66,7 +66,8 @@
                         <a href="javascript:void(0)" aria-expanded="true"><i class="fa fa-table"></i>
                             <span>Authorization Management</span></a>
                         <ul class="collapse">
-                            <li><a href="datatable.html">datatable</a></li>
+                            <li><a href="<c:url value='/admin/role'/>">Role Management</a></li>
+                            <li><a href="<c:url value='/admin/permission'/>">Permission Management</a></li>
                         </ul>
                     </li>                             
                 </ul>

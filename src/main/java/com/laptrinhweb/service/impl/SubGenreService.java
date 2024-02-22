@@ -10,7 +10,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.laptrinhweb.dto.GenreDTO;
 import com.laptrinhweb.dto.SubGenreDTO;
 import com.laptrinhweb.entity.SubGenreEntity;
 import com.laptrinhweb.repository.ISubGenreRepository;
@@ -93,7 +92,7 @@ public class SubGenreService implements ISubGenreService {
 	}
 
 	@Override
-	public Map<String, String> finAll_HasMap() {
+	public Map<String, String> findAll_HasMap() {
 		List<SubGenreEntity> subGenreEntities = subGenreRepository.findAll();
 		Map<String, String> subGenreDTO_Map = new HashMap<>();
 		for(SubGenreEntity subGenreEntity:subGenreEntities) {

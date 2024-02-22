@@ -22,10 +22,10 @@
     <div class="row align-items-center">
         <div class="col-sm-6">
             <div class="breadcrumbs-area clearfix">
-                <h4 class="page-title pull-left">SubGenre Management</h4>
+                <h4 class="page-title pull-left">Role Management</h4>
                 <ul class="breadcrumbs pull-left">
                     <li><a href="home">Home</a></li>
-                    <li><span>SubGenre Management</span></li>
+                    <li><span>Role Management</span></li>
                 </ul>
             </div>
         </div>
@@ -49,20 +49,9 @@
         <div class="col-12 mt-5">
             <div class="card">
                 <div class="card-body" style="padding-top: 0%">
-                    <div style="width:100%; display: flex; flex-direction: columns; justify-content: space-around; align-content: center; margin: 2% 0% ; text-align: center;">
-	                    <div  style="text-align: left; margin: auto 0%; flex: 1"><p class="header-title" style="padding: 0%; margin: 0%">SubGenre Data</p></div>
-						<div class="form-group" style="display: flex; justify-content: center; margin: 0; flex: 1; height: 150%">
-	                        <select id="genreFilter" class="genreFilter form-control" style="margin:auto; width: 40%; padding: 0; text-align: center"> 
-		                    		<option value="-">--Chọn thể loại--</option>
-		                    		<c:forEach var="item" items="${genreList}">
-		                    			<option value="${item.code}">${item.name}</option>
-		                    		</c:forEach>	                    		
-		                    </select>
-                        </div>
-	                    <div style="display: flex; justify-content: center; flex: 1">
-	                    	
-	                    </div>
-	                    <a href="subgenre/save"><button type="button" class="btn btn-primary"><div class="fw-icons"><i class="fa fa-plus-square" style="margin-right: 2px"></i> Add New</div></button></a>
+                    <div style="width:100%; display: flex; flex-direction: columns; justify-content: space-between; align-content: center; margin: 2% 0% ; text-align: center;">
+	                    <div  style="text-align: center; margin: auto 0%;"><p class="header-title" style="padding: 0%; margin: 0%">Permission Data</p></div>
+	                    <a href="role/save"><button type="button" class="btn btn-primary"><div class="fw-icons"><i class="fa fa-plus-square" style="margin-right: 2px"></i> Add New</div></button></a>
                     </div>
                     <div class="data-tables">
                         <table id="dataTable" class="text-center">
@@ -70,9 +59,8 @@
                                 <tr>
                                 	<th>Code</th>
                                     <th>Name</th>
-                                    <th>ThumbNail</th>
-                                    <th>Short Description</th>
-                                    <th>Genre</th>
+                                    <th>Description</th>
+                                    <th>Permission</th>
                                     <th>Modified By</th>
                                     <th>Tool</th>
                                 </tr>
@@ -82,17 +70,16 @@
                                 	<tr>
 	                                    <td>${item.code}</td>
 	                                    <td>${item.name}</td>
-	                                    <td><img style="padding: 10%; border-radius: 1%" src="${item.thumbnail}"></td>
-	                                    <td>${item.shortDescription}</td>
+	                                    <td>${item.disription}</td>
 	                                    <td>
-		                                    <c:forEach var="genre" items="${item.genreCodeList}">
-		                                    	<a href="genre?search=${genre}">${genre},</a>
-		                                    </c:forEach>
+		                                    <c:forEach var="permission" items="${item.permissionCodeList}">
+			                                	<a href="permission?search=${permission}">${permission},</a>
+			                                </c:forEach>
 	                                    </td>
 	                                    <td>${item.modifiedBy}</td>
 	                                    <td >
 	                                   		<div class="fw-icons">
-	                                   			<a href="subgenre/edit?id=${item.id}"><i class="fa fa-wrench"></i>Edit</a>
+	                                   			<a href="role/edit?id=${item.id}"><i class="fa fa-wrench"></i>Edit</a>
 	                                    	</div>
 	                                    	<div class="fw-icons" id="${item.id}">
 	                                    		<a href="#" class="btnDelete" onclick="onClickBtnDelete()"  id="btnDelete_${item.id}"><i class="fa fa-trash"></i>Delete</a>
@@ -105,7 +92,7 @@
                     </div>
                     <!-- Pagination -->
                     <div style="width: 100%; display: flex; justify-content: space-between; align-items: center">
-                    	<form id="formChangePage" action="subgenre" method="get" style="height: 50%; margin: auto 0;">
+                    	<form id="formChangePage" action="permission" method="get" style="height: 50%; margin: auto 0;">
                     		Max page item:
 	                		<select class="form-control" name="limit" id="maxPageItem" style="width: 100%; height: 100%">
 	                               <option value="2">2</option>
@@ -114,12 +101,10 @@
 	                               <option value="20">20</option>
 	                        </select>
 	                		<input type="hidden" value="${model.nextPage}" name="page" id="nextPage" /> 
-                			<input type="hidden" value="${model.searchValue}" name="search" id="search" /> 
-                			<input type="hidden" value="${genreCode}" name="genreCode" id="genreCode" /> 
+                			<input type="hidden" value="${model.searchValue}" name="search" id="searchValue"/>
                 		</form>
                     	<ul class="pagination" id="pagination1" style="right: 1px; position: relative;"></ul>
                     </div>
-                	
                 </div>
             </div>
         </div>
@@ -132,10 +117,9 @@
     <script type="text/javascript">
     var totalPages = ${model.totalPages};
 	var currentPage = ${model.nextPage};
-	var maxPageItem = ${model.limit};   
-	$("#maxPageItem").val(maxPageItem).change();	
-	var genreCode = '${genreCode}'; 
-	$("#genreFilter").val(genreCode).change();
+	var maxPageItem = ${model.limit};  
+	$("#maxPageItem").val(maxPageItem).change();
+	
 	$.jqPaginator('#pagination1', {
 		totalPages : totalPages,
 		visiblePages : 5,
@@ -150,20 +134,19 @@
 	$('#maxPageItem').on('change', function (e) {
 		$("#nextPage").val(1);
 		$("#formChangePage").submit();			
-	});
-	$('#genreFilter').on('change', function (e) {
-		$("#nextPage").val(1);
-		$('#genreCode').val($(this).val());
-		$("#formChangePage").submit();			
-	});
+	});		
 	</script>
+	
+	
 	<!-- Search -->
 	<script type="text/javascript">
-	$("#formSearchInput").attr('action')="subgenre";
+	$("#formSearchInput").attr('action')="role";
 	</script>
 	
 	
-	<c:url var="restAPI_URL" value="/api/admin/subgenre"/>
+	
+	<!-- Delete -->
+	<c:url var="restAPI_URL" value="/api/admin/role"/>
 	<script type="text/javascript">
 
 	$(".btnDelete").click(function(e){
