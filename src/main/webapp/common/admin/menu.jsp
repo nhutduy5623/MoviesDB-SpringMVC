@@ -48,9 +48,9 @@
                     
                     <li>
                         <a href="javascript:void(0)" aria-expanded="true"><i class="fa fa-table"></i>
-                            <span>Account Management</span></a>
+                            <span>User Management</span></a>
 	                        <ul class="collapse">
-	                            <li><a href="<c:url value='/admin/account'/>">Account Management</a></li>
+	                            <li><a href="<c:url value='/admin/user'/>">Account Management</a></li>
 	                        </ul>
                     </li>  
                     

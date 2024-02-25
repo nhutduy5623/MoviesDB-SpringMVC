@@ -3,6 +3,8 @@ package com.laptrinhweb.repository;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -27,4 +29,9 @@ public interface IUserRepository extends JpaRepository<UserEntity, Long> {
 	        "WHERE u.id = :userId")
 	List<PermissionEntity> findUserPermissions(@Param("userId") Long userId);
 	
+	@Query("SELECT u FROM UserEntity u WHERE u.email LIKE %:email%")
+    Page<UserEntity> findByEmailPageable(@Param("email") String email, Pageable pageable);
+	@Query("SELECT COUNT(u) FROM UserEntity u WHERE u.email LIKE %:email%")
+    Integer countByEmail(@Param("email") String email);
+
 }

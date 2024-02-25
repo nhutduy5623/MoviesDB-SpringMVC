@@ -3,7 +3,7 @@ package com.laptrinhweb.dto;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UserDTO extends AbstractDTO {
+public class UserDTO extends AbstractDTO<UserDTO> {
 	private String code;
 	private String email;
 	private String passWord;
