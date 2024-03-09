@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class WorkDTO extends AbstractDTO{
+public class WorkDTO extends AbstractDTO<WorkDTO>{
 	private String code;
 	private String name;
 	private String overview;

@@ -1,5 +1,7 @@
 package com.laptrinhweb.repository;
 
+import java.util.List;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -13,6 +15,9 @@ public interface ISubGenreRepository extends JpaRepository<SubGenreEntity, Long>
 	SubGenreEntity findOneByCode(String code);
 	Page<SubGenreEntity> findByGenreList_Code(String genreCode, Pageable pageable);
 	int countByGenreList_Code(String genreCode);
+	
+	List<SubGenreEntity> findByGenreList_Code(String genreCode);
+
 	
 	@Query("SELECT sg FROM SubGenreEntity sg WHERE sg.name LIKE %:name%")
     Page<SubGenreEntity> findByNamePageable(@Param("name") String name, Pageable pageable);

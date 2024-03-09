@@ -116,5 +116,15 @@ public class SubGenreService implements ISubGenreService {
 		return subGenreRepository.countByName(name);
 	}
 
+	@Override
+	public List<SubGenreDTO> findByGenreList_Code(String genreCode) {
+		List<SubGenreEntity> subGenreEntities = subGenreRepository.findByGenreList_Code(genreCode);
+		List<SubGenreDTO> subGenreDTOs = new ArrayList<>();
+		for(SubGenreEntity subGenreEntity:subGenreEntities) {
+			subGenreDTOs.add(subGenreConvert.toDTO(subGenreEntity));
+		}
+		return subGenreDTOs;
+	}
+
 	
 }

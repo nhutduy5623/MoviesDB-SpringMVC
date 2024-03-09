@@ -29,4 +29,5 @@ public class RoleAPI {
 	public void deleteRole(@RequestBody Long[] ids) {
 		roleService.delete(ids);	
 	}
+	
 }

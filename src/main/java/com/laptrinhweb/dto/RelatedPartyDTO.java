@@ -1,6 +1,6 @@
 package com.laptrinhweb.dto;
 
-public class RelatedPartyDTO extends AbstractDTO {
+public class RelatedPartyDTO extends AbstractDTO<RelatedPartyDTO> {
 
 	private String code;
 	private String name;
@@ -9,6 +9,7 @@ public class RelatedPartyDTO extends AbstractDTO {
 	private String overview;
 	private String website;
 	private int status;
+	private String roleCode;
 	private Long roleId;
 
 	public String getCode() {
@@ -67,6 +68,14 @@ public class RelatedPartyDTO extends AbstractDTO {
 		this.status = status;
 	}
 
+	public String getRoleCode() {
+		return roleCode;
+	}
+
+	public void setRoleCode(String roleCode) {
+		this.roleCode = roleCode;
+	}
+
 	public Long getRoleId() {
 		return roleId;
 	}
@@ -74,5 +83,6 @@ public class RelatedPartyDTO extends AbstractDTO {
 	public void setRoleId(Long roleId) {
 		this.roleId = roleId;
 	}
+
 
 }

@@ -194,73 +194,66 @@
 			<version>3.1.1</version>
 		</dependency>
 
+		<!-- Access Outbound API -->
+		<!-- https://mvnrepository.com/artifact/com.squareup.okhttp/okhttp -->
+		<dependency>
+			<groupId>com.squareup.okhttp</groupId>
+			<artifactId>okhttp</artifactId>
+			<version>2.7.5</version>
+		</dependency>
+
+
 
 	</dependencies>
 
 
 
 	<build>
-	<pluginManagement>
-		<plugins>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<version>3.6.1</version>
-				<configuration>
-					<source>1.8</source>
-					<target>1.8</target>
-				</configuration>
-			</plugin>
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-compiler-plugin</artifactId>
+					<version>3.6.1</version>
+					<configuration>
+						<source>1.8</source>
+						<target>1.8</target>
+					</configuration>
+				</plugin>
 
-			<!-- Plugin Antrun để tạo thư mục uploads 
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-antrun-plugin</artifactId>
-				<version>1.8</version>
-				<executions>
-					<execution>
-						<id>create-uploads-directory</id>
-						<phase>process-resources</phase>
-						<goals>
-							<goal>run</goal>
-						</goals>
-						<configuration>
-							<tasks>
-								<mkdir
-									dir="${project.build.directory}/${project.build.finalName}/images" />
-							</tasks>
-						</configuration>
-					</execution>
-				</executions>
-			</plugin>-->
+				<!-- Plugin Antrun để tạo thư mục uploads <plugin> <groupId>org.apache.maven.plugins</groupId> 
+					<artifactId>maven-antrun-plugin</artifactId> <version>1.8</version> <executions> 
+					<execution> <id>create-uploads-directory</id> <phase>process-resources</phase> 
+					<goals> <goal>run</goal> </goals> <configuration> <tasks> <mkdir dir="${project.build.directory}/${project.build.finalName}/images" 
+					/> </tasks> </configuration> </execution> </executions> </plugin> -->
 
-			<!-- Plugin Maven Resources để copy tệp -->
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-resources-plugin</artifactId>
-				<version>3.2.0</version>
-				<executions>
-					<execution>
-						<id>copy-resources</id>
-						<phase>package</phase>
-						<goals>
-							<goal>copy-resources</goal>
-						</goals>
-						<configuration>
-							<outputDirectory>${project.build.directory}/${project.build.finalName}/images</outputDirectory>
-							<resources>
-								<resource>
-									<directory>${project.basedir}/uploads</directory>
-									<includes>
-										<include>**/*</include>
-									</includes>
-								</resource>
-							</resources>
-						</configuration>
-					</execution>
-				</executions>
-			</plugin>
-		</plugins>
+				<!-- Plugin Maven Resources để copy tệp -->
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-resources-plugin</artifactId>
+					<version>3.2.0</version>
+					<executions>
+						<execution>
+							<id>copy-resources</id>
+							<phase>package</phase>
+							<goals>
+								<goal>copy-resources</goal>
+							</goals>
+							<configuration>
+								<outputDirectory>${project.build.directory}/${project.build.finalName}/images</outputDirectory>
+								<resources>
+									<resource>
+										<directory>${project.basedir}/uploads</directory>
+										<includes>
+											<include>**/*</include>
+										</includes>
+									</resource>
+								</resources>
+							</configuration>
+						</execution>
+					</executions>
+				</plugin>
+			</plugins>
 		</pluginManagement>
 	</build>
 

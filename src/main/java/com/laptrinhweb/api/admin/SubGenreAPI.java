@@ -1,7 +1,10 @@
 package com.laptrinhweb.api.admin;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -29,5 +32,11 @@ public class SubGenreAPI {
 	@DeleteMapping("/api/admin/subgenre") 
 	public void deleteSubGenre(@RequestBody Long[] ids) {
 		subGenreService.delete(ids);	
+	}
+	
+	@PostMapping("/api/subgenre/getbygenrecode") 
+	public List<SubGenreDTO> getSubGenreByGenreCode(@RequestBody String genreCode) {
+		System.out.println("GenreCode: "+ genreCode);
+		return subGenreService.findByGenreList_Code(genreCode);	
 	}
 }

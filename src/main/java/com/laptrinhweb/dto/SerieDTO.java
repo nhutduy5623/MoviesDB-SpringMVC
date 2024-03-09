@@ -3,7 +3,7 @@ package com.laptrinhweb.dto;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SerieDTO extends AbstractDTO{
+public class SerieDTO extends AbstractDTO<SerieDTO>{
 	private String code;
 	private String name;
 	private String thumbnail;

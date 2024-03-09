@@ -63,7 +63,7 @@ public class WorkEntity extends baseEntity{
 	@JoinColumn(name = "serieid")
 	private SerieEntity serie;
 	
-	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(name = "subgenre_work", joinColumns = @JoinColumn(name = "workid"), inverseJoinColumns = @JoinColumn(name = "subgenreid"))
 	private List<SubGenreEntity> subGenreList = new ArrayList<>();
 	

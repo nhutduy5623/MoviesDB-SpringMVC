@@ -12,6 +12,7 @@ public interface ISubGenreService {
 	void delete(Long[] ids);
 	List<SubGenreDTO> findAll();
 	List<SubGenreDTO> findByGenreList_Code(String genreCode, Pageable pageable);
+	List<SubGenreDTO> findByGenreList_Code(String genreCode);
 	List<SubGenreDTO> findAll(Pageable pageable);
 	Integer countByGenreList_Code(String genreCode);
 	Integer countAll();
