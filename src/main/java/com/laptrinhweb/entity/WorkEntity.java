@@ -67,7 +67,7 @@ public class WorkEntity extends baseEntity{
 	@JoinTable(name = "subgenre_work", joinColumns = @JoinColumn(name = "workid"), inverseJoinColumns = @JoinColumn(name = "subgenreid"))
 	private List<SubGenreEntity> subGenreList = new ArrayList<>();
 	
-	@OneToMany(mappedBy = "work")
+	@OneToMany(mappedBy = "work", fetch = FetchType.LAZY)
 	private List<RelatedPartyWorkDetailEntity> RelatedPartyDetailList = new ArrayList<>();
 
 	@OneToMany(mappedBy = "work")

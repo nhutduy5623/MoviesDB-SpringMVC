@@ -24,7 +24,7 @@ public class RelatedPartyConvert {
 	public RelatedPartyEntity toEntity(RelatedPartyDTO relatedPartyDTO) {
 		RelatedPartyEntity relatedPartyEntity = new RelatedPartyEntity();
 		relatedPartyEntity = modelMapper.map(relatedPartyDTO, RelatedPartyEntity.class);
-		relatedPartyEntity.setRProle(relatedPartyRoleRepository.getOne(relatedPartyDTO.getRoleId()));
+		relatedPartyEntity.setRProle(relatedPartyRoleRepository.findOneByCode(relatedPartyDTO.getRoleCode()));
 		return relatedPartyEntity;
 		
 	}

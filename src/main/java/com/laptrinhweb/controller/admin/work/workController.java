@@ -1,6 +1,7 @@
 package com.laptrinhweb.controller.admin.work;
 
 import java.io.IOException;
+import java.text.ParseException;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -13,10 +14,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.laptrinhweb.SystemConstant;
-import com.laptrinhweb.dto.SubGenreDTO;
 import com.laptrinhweb.dto.WorkDTO;
+import com.laptrinhweb.dto.TheMovieDB_Format.TMDB_WorkDTO;
 import com.laptrinhweb.service.IGenreService;
+import com.laptrinhweb.service.IRelatedPartyRoleService;
+import com.laptrinhweb.service.IRelatedPartyService;
 import com.laptrinhweb.service.ISubGenreService;
 import com.laptrinhweb.service.IWorkService;
 import com.squareup.okhttp.OkHttpClient;
@@ -34,6 +38,12 @@ public class workController {
 	
 	@Autowired
 	IGenreService genreService;
+	
+	@Autowired
+	IRelatedPartyService relatedPartyService;
+	
+	@Autowired
+	IRelatedPartyRoleService relatedPartyRoleService;
 
 	@RequestMapping(value = "/admin/work", method = RequestMethod.GET)
 	public ModelAndView homePage(@RequestParam(value = "page", required = false) Integer page,
@@ -54,11 +64,11 @@ public class workController {
 			if(search == null) {
 				workDTO.setListResults(workService.findAll(pageable));
 				workDTO.setTotalPages(workService.countAll());
-				workDTO.setTotalPages((int) Math.ceil((double) subGenreService.countAll()/workDTO.getLimit()));
+				workDTO.setTotalPages((int) Math.ceil((double) workService.countAll()/workDTO.getLimit()));
 			} else {
 				workDTO.setSearchValue(search);
 				workDTO.setListResults(workService.findByNamePageable(search, pageable));
-				workDTO.setTotalPages((int) Math.ceil((double) subGenreService.countByName(search)/workDTO.getLimit()));
+				workDTO.setTotalPages((int) Math.ceil((double) workService.countByName(search)/workDTO.getLimit()));
 			}
 		}else {
 			workDTO.setListResults(workService.findByGenre_Code(genreCode, pageable));
@@ -78,9 +88,14 @@ public class workController {
 	@RequestMapping(value = "/admin/work/save", method = RequestMethod.GET)
 	public ModelAndView savePage() {
 		ModelAndView mav = new ModelAndView("admin/work/work_formEdit_Save");
-		mav.addObject("model", new WorkDTO());
+		WorkDTO workDTO = new WorkDTO();
+		mav.addObject("model", workDTO);
 		mav.addObject("genreCodeList", genreService.findAll_HasMap());
 		mav.addObject("subGenreCodeList", subGenreService.findAll_HasMap());
+		mav.addObject("listRelatedPartyRole", relatedPartyRoleService.findAll());
+		mav.addObject("listRelatedParty", relatedPartyService.findAll());
+		mav.addObject("listRPByWork", relatedPartyService.findByWork(workDTO));
+		mav.addObject("listRPWithoutWork", relatedPartyService.findWithoutWork(workDTO));
 		return mav;
 	}
 
@@ -91,14 +106,16 @@ public class workController {
 		mav.addObject("model", workDTO);
 		mav.addObject("genreCodeList", genreService.findAll_HasMap());
 		mav.addObject("subGenreCodeList", subGenreService.findAll_HasMap());
+		mav.addObject("listRelatedPartyRole", relatedPartyRoleService.findAll());
+		mav.addObject("listRelatedParty", relatedPartyService.findAll());
+		mav.addObject("listRPByWork", relatedPartyService.findByWork(workDTO));
+		mav.addObject("listRPWithoutWork", relatedPartyService.findWithoutWork(workDTO));
 		return mav;
 	}
 	
 	@RequestMapping(value = "/admin/work/fullfillinform", method = RequestMethod.GET)
-	public ModelAndView fillInformWithAPI(@RequestParam(value = "code", required = true) String code, HttpServletRequest request) throws IOException {
-		ModelAndView mav = new ModelAndView("admin/work/work_formEdit_Save");
-		WorkDTO workDTO = new WorkDTO();
-		
+	public ModelAndView fillInformWithAPI(@RequestParam(value = "code", required = true) String code, HttpServletRequest request) throws IOException, ParseException {
+		ModelAndView mav = new ModelAndView("admin/work/work_formEdit_Save");		
 		
 		OkHttpClient client = new OkHttpClient();
 
@@ -111,12 +128,18 @@ public class workController {
 
 		Response response = client.newCall(rqAPI).execute();
 		
-		
-		System.out.println("response.body().string(): "+response.body().string());
-		
+		String jsonTMDB = response.body().string();
+		System.out.println("response.body().string(): "+jsonTMDB);
+        ObjectMapper objectMapper = new ObjectMapper();
+		TMDB_WorkDTO workTMDB = objectMapper.readValue(jsonTMDB, TMDB_WorkDTO.class);
+		WorkDTO workDTO = new WorkDTO(workTMDB);
 		mav.addObject("model", workDTO);
 		mav.addObject("genreCodeList", genreService.findAll_HasMap());
 		mav.addObject("subGenreCodeList", subGenreService.findAll_HasMap());
+		mav.addObject("listRelatedPartyRole", relatedPartyRoleService.findAll());
+		mav.addObject("listRelatedParty", relatedPartyService.findAll());
+		mav.addObject("listRPByWork", relatedPartyService.findByWork(new WorkDTO()));
+		mav.addObject("listRPWithoutWork", relatedPartyService.findWithoutWork(new WorkDTO()));
 		return mav;
 	}
 }

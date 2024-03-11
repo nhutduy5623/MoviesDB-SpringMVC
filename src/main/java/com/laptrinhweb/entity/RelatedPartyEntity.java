@@ -129,6 +129,13 @@ public class RelatedPartyEntity extends baseEntity{
 	public void setWorkRelatedDetailList(List<RelatedPartyWorkDetailEntity> workRelatedDetailList) {
 		this.workRelatedDetailList = workRelatedDetailList;
 	}
+
+	@Override
+	public String toString() {
+		return "RelatedPartyEntity [code=" + code + ", name=" + name + "]";
+	}
+	
+	
 	
 	
 	

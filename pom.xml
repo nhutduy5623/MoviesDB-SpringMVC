@@ -240,7 +240,7 @@
 								<goal>copy-resources</goal>
 							</goals>
 							<configuration>
-								<outputDirectory>${project.build.directory}/${project.build.finalName}/images</outputDirectory>
+								<outputDirectory>${project.build.directory}/${project.build.finalName}/template/uploads</outputDirectory>
 								<resources>
 									<resource>
 										<directory>${project.basedir}/uploads</directory>

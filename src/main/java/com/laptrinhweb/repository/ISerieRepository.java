@@ -14,4 +14,5 @@ public interface ISerieRepository extends JpaRepository<SerieEntity, Long>{
     Page<SerieEntity> findByNamePageable(@Param("name") String name, Pageable pageable);
 	@Query("SELECT COUNT(s) FROM SerieEntity s WHERE s.name LIKE %:name%")
     Integer countByName(@Param("name") String name);
+	
 }

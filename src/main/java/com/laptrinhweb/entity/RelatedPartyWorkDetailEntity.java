@@ -11,16 +11,32 @@ import javax.persistence.Table;
 @Table(name = "relatedparty_workdetail")
 public class RelatedPartyWorkDetailEntity extends baseEntity{
 	
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne
 	@JoinColumn(name = "workid")
 	private WorkEntity work;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne
 	@JoinColumn(name = "relatedpartyid")
 	private RelatedPartyEntity relatedParty;	
 	
 	@Column(name = "role")
 	private String role;
+
+	
+	
+	public RelatedPartyWorkDetailEntity() {
+		super();
+	}
+	
+	
+
+	public RelatedPartyWorkDetailEntity(WorkEntity work, RelatedPartyEntity relatedParty, String role) {
+		this.work = work;
+		this.relatedParty = relatedParty;
+		this.role = role;
+	}
+
+
 
 	public String getRole() {
 		return role;
@@ -46,6 +62,15 @@ public class RelatedPartyWorkDetailEntity extends baseEntity{
 	public void setRelatedParty(RelatedPartyEntity relatedParty) {
 		this.relatedParty = relatedParty;
 	}
+
+
+
+	@Override
+	public String toString() {
+		return "RelatedPartyWorkDetailEntity [work=" + work + ", relatedParty=" + relatedParty + ", role=" + role + "]";
+	}
+	
+	
 
 	
 }

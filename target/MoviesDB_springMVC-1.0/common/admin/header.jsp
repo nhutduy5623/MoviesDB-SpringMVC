@@ -1,124 +1,169 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ page import="com.laptrinhweb.util.SecurityUtil" %>
+	pageEncoding="UTF-8"%>
+<%@ page import="com.laptrinhweb.util.SecurityUtil"%>
 <!-- BEGIN | Header -->
-<header class="ht-header full-width-hd">
-		<div class="row">
-			<nav id="mainNav" class="navbar navbar-default navbar-custom">
-				<!-- Brand and toggle get grouped for better mobile display -->
-				<div class="navbar-header logo">
-				    <div class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-					    <span class="sr-only">Toggle navigation</span>
-					    <div id="nav-icon1">
-							<span></span>
-							<span></span>
-							<span></span>
-						</div>
-				    </div>
-				    <a href="<c:url value = '/trang-chu'/>"><img class="logo" src="<c:url value='/template/web/images/logo1.png'/>" alt="" width="119" height="58"></a>
-			    </div>
-				<!-- Collect the nav links, forms, and other content for toggling -->
-				<div class="collapse navbar-collapse flex-parent" id="bs-example-navbar-collapse-1">
-					<ul class="nav navbar-nav flex-child-menu menu-left">
-						<li class="hidden">
-							<a href="#page-top"></a>
-						</li>
-						<li class="dropdown first">
-							<a class="btn btn-default dropdown-toggle lv1" data-toggle="dropdown" data-hover="dropdown">
-							Home <i class="fa fa-angle-down" aria-hidden="true"></i>
-							</a>
-						</li>	
-						<li class="dropdown first">
-							<a class="btn btn-default dropdown-toggle lv1" data-toggle="dropdown" data-hover="dropdown">
-							Genre Manage<i class="fa fa-angle-down" aria-hidden="true"></i>
-							</a>
-							<ul class="dropdown-menu level1">
-								<!-- <li class="dropdown">
-									<a href="#">about us <i class="fa fa-caret-right" aria-hidden="true"></i></a>
-									<ul class="dropdown-menu level2">
-										<li><a href="aboutv1.html">About Us 01</a></li>
-										<li><a href="aboutv2.html">About Us 02</a></li>
-									</ul>
-								</li> -->
-								<li><a href="moviegrid.html">Movie grid</a></li>
-								<li><a href="moviegridfw.html">movie grid full width</a></li>
-								<li><a href="movielist.html">Movie list</a></li>
-								<li class="it-last"><a href="moviesingle.html">Movie single</a></li>
-							</ul>
-						</li>
-						<li class="dropdown first">
-							<a class="btn btn-default dropdown-toggle lv1" data-toggle="dropdown" data-hover="dropdown">
-							RelatedParties Manage <i class="fa fa-angle-down" aria-hidden="true"></i>
-							</a>
-							<ul class="dropdown-menu level1">
-								<li><a href="celebritygrid01.html">RelatedParties Role</a></li>
-								<li><a href="celebritygrid02.html">RelatedParties Manager </a></li>
-								<li><a href="celebritylist.html">celebrity list</a></li>
-								<li class="it-last"><a href="celebritysingle.html">celebrity single</a></li>
-							</ul>
-						</li>
-						<li class="dropdown first">
-							<a class="btn btn-default dropdown-toggle lv1" data-toggle="dropdown" data-hover="dropdown">
-							Work Manage <i class="fa fa-angle-down" aria-hidden="true"></i>
-							</a>
-							<ul class="dropdown-menu level1">
-								<li><a href="bloglist.html">Series Manage</a></li>
-								<li><a href="bloggrid.html">Work Manage</a></li>
-							</ul>
-						</li>
-						<li class="dropdown first">
-							<a class="btn btn-default dropdown-toggle lv1" data-toggle="dropdown" data-hover="dropdown">
-							User Manage <i class="fa fa-angle-down" aria-hidden="true"></i>
-							</a>
-							<ul class="dropdown-menu level1">
-								<li><a href="userfavoritegrid.html">user favorite grid</a></li>
-								<li><a href="userfavoritelist.html">user favorite list</a></li>
-								<li><a href="userprofile.html">user profile</a></li>
-								<li class="it-last"><a href="userrate.html">user rate</a></li>
-							</ul>
-						</li>
-						
-						<li class="dropdown first">
-							<a class="btn btn-default dropdown-toggle lv1" data-toggle="dropdown" data-hover="dropdown">
-							Media Manage <i class="fa fa-angle-down" aria-hidden="true"></i>
-							</a>
-							<ul class="dropdown-menu level1">
-								<li><a href="userfavoritegrid.html">user favorite grid</a></li>
-								<li><a href="userfavoritelist.html">user favorite list</a></li>
-								<li><a href="userprofile.html">user profile</a></li>
-								<li class="it-last"><a href="userrate.html">user rate</a></li>
-							</ul>
-						</li>
-					</ul>
-					<ul class="nav navbar-nav flex-child-menu menu-right">
-						<li class="dropdown first">
-							<a class="btn btn-default dropdown-toggle lv1" data-toggle="dropdown" data-hover="dropdown">
-							Contact <i class="fa fa-angle-down" aria-hidden="true"></i>
-							</a>
-							<ul class="dropdown-menu level1">
-								<li><a href="landing.html">Landing</a></li>
-								<li><a href="404.html">404 Page</a></li>
-								<li class="it-last"><a href="comingsoon.html">Coming soon</a></li>
-							</ul>
-						</li>                
-						
-						<security:authorize access="isAuthenticated()">
-						<li class=" dropdown first ">						
-							<a class="btn btn-default dropdown-toggle lv1" data-toggle="dropdown" data-hover="dropdown">
-							Wellcome, <%= SecurityUtil.getPrincipal().getFullName() %><i class="fa fa-angle-down" aria-hidden="true"></i>
-							</a>
-							<ul class="dropdown-menu level1">
-								<li><a href="landing.html">Landing</a></li>
-							</ul>
-						</li>      
-							<li class="btn"><a href="<c:url value='/logout'/>">Logout</a></li>
-						</security:authorize>	
-					</ul>
-				</div>
-			<!-- /.navbar-collapse -->
-	    </nav>
-	    <!-- search form -->
+<!-- header area start -->
+<div class="header-area">
+	<div class="row align-items-center">
+		<!-- nav and search button -->
+		<div class="col-md-6 col-sm-8 clearfix">
+			<div class="nav-btn pull-left">
+				<span></span> <span></span> <span></span>
+			</div>
+			<div class="search-box pull-left">
+				<form action="#" id="formSearchInput">
+					<input type="text" name="search" id="searchInput" value="${model.searchValue}" placeholder="Search...">
+					<i class="ti-search" id="btnSearch"></i>
+				</form>
+			</div>
 		</div>
-	
-</header>
+		<!-- profile info & task notification -->
+		<div class="col-md-6 col-sm-4 clearfix">
+			<ul class="notification-area pull-right">
+				<li id="full-view"><i class="ti-fullscreen"></i></li>
+				<li id="full-view-exit"><i class="ti-zoom-out"></i></li>
+				<li class="dropdown"><i class="ti-bell dropdown-toggle"
+					data-toggle="dropdown"> <span>2</span>
+				</i>
+					<div class="dropdown-menu bell-notify-box notify-box">
+						<span class="notify-title">You have 3 new notifications <a
+							href="#">view all</a></span>
+						<div class="nofity-list">
+							<a href="#" class="notify-item">
+								<div class="notify-thumb">
+									<i class="ti-key btn-danger"></i>
+								</div>
+								<div class="notify-text">
+									<p>You have Changed Your Password</p>
+									<span>Just Now</span>
+								</div>
+							</a> <a href="#" class="notify-item">
+								<div class="notify-thumb">
+									<i class="ti-comments-smiley btn-info"></i>
+								</div>
+								<div class="notify-text">
+									<p>New Commetns On Post</p>
+									<span>30 Seconds ago</span>
+								</div>
+							</a> <a href="#" class="notify-item">
+								<div class="notify-thumb">
+									<i class="ti-key btn-primary"></i>
+								</div>
+								<div class="notify-text">
+									<p>Some special like you</p>
+									<span>Just Now</span>
+								</div>
+							</a> <a href="#" class="notify-item">
+								<div class="notify-thumb">
+									<i class="ti-comments-smiley btn-info"></i>
+								</div>
+								<div class="notify-text">
+									<p>New Commetns On Post</p>
+									<span>30 Seconds ago</span>
+								</div>
+							</a> <a href="#" class="notify-item">
+								<div class="notify-thumb">
+									<i class="ti-key btn-primary"></i>
+								</div>
+								<div class="notify-text">
+									<p>Some special like you</p>
+									<span>Just Now</span>
+								</div>
+							</a> <a href="#" class="notify-item">
+								<div class="notify-thumb">
+									<i class="ti-key btn-danger"></i>
+								</div>
+								<div class="notify-text">
+									<p>You have Changed Your Password</p>
+									<span>Just Now</span>
+								</div>
+							</a> <a href="#" class="notify-item">
+								<div class="notify-thumb">
+									<i class="ti-key btn-danger"></i>
+								</div>
+								<div class="notify-text">
+									<p>You have Changed Your Password</p>
+									<span>Just Now</span>
+								</div>
+							</a>
+						</div>
+					</div></li>
+				<li class="dropdown"><i
+					class="fa fa-envelope-o dropdown-toggle" data-toggle="dropdown"><span>3</span></i>
+					<div class="dropdown-menu notify-box nt-enveloper-box">
+						<span class="notify-title">You have 3 new notifications <a
+							href="#">view all</a></span>
+						<div class="nofity-list">
+							<a href="#" class="notify-item">
+								<div class="notify-thumb">
+									<img src="assets/images/author/author-img1.jpg" alt="image">
+								</div>
+								<div class="notify-text">
+									<p>Aglae Mayer</p>
+									<span class="msg">Hey I am waiting for you...</span> <span>3:15
+										PM</span>
+								</div>
+							</a> <a href="#" class="notify-item">
+								<div class="notify-thumb">
+									<img src="assets/images/author/author-img2.jpg" alt="image">
+								</div>
+								<div class="notify-text">
+									<p>Aglae Mayer</p>
+									<span class="msg">When you can connect with me...</span> <span>3:15
+										PM</span>
+								</div>
+							</a> <a href="#" class="notify-item">
+								<div class="notify-thumb">
+									<img src="assets/images/author/author-img3.jpg" alt="image">
+								</div>
+								<div class="notify-text">
+									<p>Aglae Mayer</p>
+									<span class="msg">I missed you so much...</span> <span>3:15
+										PM</span>
+								</div>
+							</a> <a href="#" class="notify-item">
+								<div class="notify-thumb">
+									<img src="assets/images/author/author-img4.jpg" alt="image">
+								</div>
+								<div class="notify-text">
+									<p>Aglae Mayer</p>
+									<span class="msg">Your product is completely Ready...</span> <span>3:15
+										PM</span>
+								</div>
+							</a> <a href="#" class="notify-item">
+								<div class="notify-thumb">
+									<img src="assets/images/author/author-img2.jpg" alt="image">
+								</div>
+								<div class="notify-text">
+									<p>Aglae Mayer</p>
+									<span class="msg">Hey I am waiting for you...</span> <span>3:15
+										PM</span>
+								</div>
+							</a> <a href="#" class="notify-item">
+								<div class="notify-thumb">
+									<img src="assets/images/author/author-img1.jpg" alt="image">
+								</div>
+								<div class="notify-text">
+									<p>Aglae Mayer</p>
+									<span class="msg">Hey I am waiting for you...</span> <span>3:15
+										PM</span>
+								</div>
+							</a> <a href="#" class="notify-item">
+								<div class="notify-thumb">
+									<img src="assets/images/author/author-img3.jpg" alt="image">
+								</div>
+								<div class="notify-text">
+									<p>Aglae Mayer</p>
+									<span class="msg">Hey I am waiting for you...</span> <span>3:15
+										PM</span>
+								</div>
+							</a>
+						</div>
+					</div></li>
+				<li class="settings-btn"><i class="ti-settings"></i></li>
+			</ul>
+		</div>
+	</div>
+</div>
+<!-- header area end -->
 <!-- END | Header -->

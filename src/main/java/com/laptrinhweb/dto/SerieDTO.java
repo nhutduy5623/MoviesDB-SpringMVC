@@ -9,7 +9,6 @@ public class SerieDTO extends AbstractDTO<SerieDTO>{
 	private String thumbnail;
 	private List<String> workCodeList = new ArrayList<>();
 	
-	
 	public String getCode() {
 		return code;
 	}
@@ -34,6 +33,4 @@ public class SerieDTO extends AbstractDTO<SerieDTO>{
 	public void setWorkCodeList(List<String> workCodeList) {
 		this.workCodeList = workCodeList;
 	}
-	
-	
 }
