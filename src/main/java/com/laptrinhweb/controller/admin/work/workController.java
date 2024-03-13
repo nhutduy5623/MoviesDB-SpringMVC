@@ -81,6 +81,7 @@ public class workController {
 		ModelAndView mav = new ModelAndView("admin/work/workManage");
 		mav.addObject("model", workDTO);
 		mav.addObject("genreCode", genreCode);
+		mav.addObject("listSubGenre", subGenreService.findAll_HasMap());
 		mav.addObject("genreList", genreService.findAll());
 		return mav;
 	}
@@ -127,12 +128,12 @@ public class workController {
 		  .build();
 
 		Response response = client.newCall(rqAPI).execute();
-		
+		String genreCode = code.split("/")[0];
 		String jsonTMDB = response.body().string();
 		System.out.println("response.body().string(): "+jsonTMDB);
         ObjectMapper objectMapper = new ObjectMapper();
 		TMDB_WorkDTO workTMDB = objectMapper.readValue(jsonTMDB, TMDB_WorkDTO.class);
-		WorkDTO workDTO = new WorkDTO(workTMDB);
+		WorkDTO workDTO = new WorkDTO(workTMDB, genreCode);
 		mav.addObject("model", workDTO);
 		mav.addObject("genreCodeList", genreService.findAll_HasMap());
 		mav.addObject("subGenreCodeList", subGenreService.findAll_HasMap());

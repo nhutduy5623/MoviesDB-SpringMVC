@@ -126,5 +126,12 @@ public class SubGenreService implements ISubGenreService {
 		return subGenreDTOs;
 	}
 
-	
+	@Override
+	public SubGenreDTO findOneByCode(String code) {
+		SubGenreEntity subgenreEntity;
+		subgenreEntity= subGenreRepository.findOneByCode(code);
+		if(subgenreEntity == null)
+			return null;
+		return subGenreConvert.toDTO(subGenreRepository.findOneByCode(code));
+	}	
 }

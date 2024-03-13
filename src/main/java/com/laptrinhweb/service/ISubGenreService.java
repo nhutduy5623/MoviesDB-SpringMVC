@@ -17,6 +17,7 @@ public interface ISubGenreService {
 	Integer countByGenreList_Code(String genreCode);
 	Integer countAll();
 	SubGenreDTO findOne(Long id);
+	SubGenreDTO findOneByCode(String code);
 	Map<String, String> findAll_HasMap();
 	
 	List<SubGenreDTO> findByNamePageable(String name, Pageable pageable);

@@ -17,7 +17,6 @@ public interface ISubGenreRepository extends JpaRepository<SubGenreEntity, Long>
 	int countByGenreList_Code(String genreCode);
 	
 	List<SubGenreEntity> findByGenreList_Code(String genreCode);
-
 	
 	@Query("SELECT sg FROM SubGenreEntity sg WHERE sg.name LIKE %:name%")
     Page<SubGenreEntity> findByNamePageable(@Param("name") String name, Pageable pageable);

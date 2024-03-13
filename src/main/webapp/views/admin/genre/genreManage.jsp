@@ -72,9 +72,13 @@
 	                                    <td>${item.name}</td>
 	                                    <td><img style="padding: 10%; border-radius: 1%" src="<c:url value='${item.thumbnail}' />"></td>
 	                                    <td>
-	                                     <c:forEach var="subGenre" items="${item.subGenreCodeList}">
-		                                    	<a href="subgenre?search=${subGenre}">${subGenre},</a>
-		                                    </c:forEach>
+	                                     	<c:forEach var="subGenreFull" items="${listSubGenre}">
+		                                     	<c:forEach var="subGenre" items="${item.subGenreCodeList}">
+			                                    	<c:if test="${subGenre == subGenreFull.key}">
+			                                    		<a href="subgenre?search=${subGenreFull.value}">${subGenreFull.value},</a>
+			                                    	</c:if>
+			                                	</c:forEach>	                                     	
+	                                     	</c:forEach>
 	                                    </td>
 	                                    <td>${item.modifiedBy}</td>
 	                                    <td >

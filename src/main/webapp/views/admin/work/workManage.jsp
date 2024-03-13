@@ -71,11 +71,11 @@
                                 	<th>Code</th>
                                     <th>Name</th>
                                     <th>ThumbNail</th>
-                                    <th>Overview</th>
                                     <th>Series</th>
                                     <th>Genre</th>
                                     <th>SubGenre</th>
                                     <th>Vote</th>
+                                    <th>Vote Count</th>
                                     <th>Status</th>
                                     <th>Detail</th>
                                     <th>Tool</th>
@@ -87,16 +87,20 @@
 	                                    <td>${item.code}</td>
 	                                    <td>${item.name}</td>
 	                                    <td><img style="padding: 10%; border-radius: 1%" src="<c:url value='${item.thumbnail}'/>"></td>
-	                                    <td>${item.overview}</td>
-	                                    <td><a href="serie?search=${item.serieCode}">${item.serieCode},</a></td>
+	                                    
+	                                    <td><a href="serie?search=${item.serieCode}">${item.serieCode}</a></td>
 	                                    <td><a href="genre?search=${item.genreCode}">${item.genreCode},</a></td>
-	                                    <td>
-		                                    <c:forEach var="subgenre" items="${item.subGenreCodeList}">
-		                                    	<a href="subgenre?search=${subgenre}">${subgenre},</a>
-		                                    </c:forEach>
+	                                    <td>		                                    
+		                                    <c:forEach var="subGenreFull" items="${listSubGenre}">
+		                                     	<c:forEach var="subGenre" items="${item.subGenreCodeList}">
+			                                    	<c:if test="${subGenre == subGenreFull.key}">
+			                                    		<a href="subgenre?search=${subGenreFull.value}">${subGenreFull.value},</a>
+			                                    	</c:if>
+			                                	</c:forEach>	                                     	
+	                                     	</c:forEach>
 	                                    </td>
 	                                    <td>${item.score}</td>
-	                                    
+	                                    <td>${item.voteCount}</td>
 	                                    <td>${item.status}</td>
 	                                    <td><a href="work/detail">Xem chi tiết</a></td>
 	                                    <td >

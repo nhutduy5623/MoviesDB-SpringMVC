@@ -48,6 +48,7 @@ public class genreController {
 		genreDTO.setNextPage(page);	
 		ModelAndView mav = new ModelAndView("admin/genre/genreManage");
 		mav.addObject("model", genreDTO);
+		mav.addObject("listSubgenre", subGenreService.findAll_HasMap());
 		return mav;
 	}
 

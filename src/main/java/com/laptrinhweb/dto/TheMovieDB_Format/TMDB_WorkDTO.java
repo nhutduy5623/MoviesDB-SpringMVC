@@ -1,5 +1,7 @@
 package com.laptrinhweb.dto.TheMovieDB_Format;
 
+import java.util.List;
+
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -12,7 +14,9 @@ public class TMDB_WorkDTO {
 	private String vote_count;
 	private String first_air_date;
 	private String backdrop_path;
-	
+	private List<TMDB_subGenreDTO> genres;
+	private String title;
+	private String budget;
 
 	public TMDB_WorkDTO() {
 		super();
@@ -66,5 +70,24 @@ public class TMDB_WorkDTO {
 	}
 	public void setBackdrop_path(String backdrop_path) {
 		this.backdrop_path = backdrop_path;
+	}
+	public List<TMDB_subGenreDTO> getGenres() {
+		return genres;
+	}
+	public void setGenres(List<TMDB_subGenreDTO> genres) {
+		this.genres = genres;
+	}
+	
+	public String getTitle() {
+		return title;
+	}
+	public void setTitle(String title) {
+		this.title = title;
+	}
+	public String getBudget() {
+		return budget;
+	}
+	public void setBudget(String budget) {
+		this.budget = budget;
 	}	
 }

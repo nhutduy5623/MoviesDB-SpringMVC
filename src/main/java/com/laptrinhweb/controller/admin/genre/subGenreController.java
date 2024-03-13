@@ -1,5 +1,9 @@
 package com.laptrinhweb.controller.admin.genre;
 
+import java.io.IOException;
+import java.text.ParseException;
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,9 +15,18 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.laptrinhweb.SystemConstant;
 import com.laptrinhweb.dto.SubGenreDTO;
+import com.laptrinhweb.dto.WorkDTO;
+import com.laptrinhweb.dto.TheMovieDB_Format.ListSubGenresTMDB;
+import com.laptrinhweb.dto.TheMovieDB_Format.TMDB_WorkDTO;
+import com.laptrinhweb.dto.TheMovieDB_Format.TMDB_subGenreDTO;
 import com.laptrinhweb.service.IGenreService;
 import com.laptrinhweb.service.ISubGenreService;
+import com.squareup.okhttp.OkHttpClient;
+import com.squareup.okhttp.Request;
+import com.squareup.okhttp.Response;
 
 @Controller(value = "subGenreController_admin")
 public class subGenreController {
@@ -78,6 +91,38 @@ public class subGenreController {
 		mav.addObject("model", subGenreDTO);
 		mav.addObject("genreCodeList", genreService.findAll_HasMap());
 		return mav;
+	}
+	
+	@RequestMapping(value = "/admin/subgenre/getAllSubGenres", method = RequestMethod.GET)
+	public ModelAndView getAllSubGenres(@RequestParam(value = "genrecode", required = true) String genreCode, HttpServletRequest request) throws IOException, ParseException {
+		ModelAndView mav = new ModelAndView("admin/genre/subGenreManage");		
+		
+		OkHttpClient client = new OkHttpClient();
+
+		Request rqAPI = new Request.Builder()
+		  .url("https://api.themoviedb.org/3/genre/"+genreCode+"/list?language=en")
+		  .get()
+		  .addHeader("accept", "application/json")
+		  .addHeader("Authorization", "Bearer "+SystemConstant.themoviedb_AccessToken)
+		  .build();
+
+		Response response = client.newCall(rqAPI).execute();		
+		String jsonTMDB = response.body().string();
+		System.out.println("response.body().string(): "+jsonTMDB);
+        ObjectMapper objectMapper = new ObjectMapper();
+		ListSubGenresTMDB listSubgenresTMDB = objectMapper.readValue(jsonTMDB, ListSubGenresTMDB.class);
+		for(TMDB_subGenreDTO subgenreTMDB: listSubgenresTMDB.getGenres()) {
+			SubGenreDTO subgenreDTO = new SubGenreDTO(subgenreTMDB, genreCode);
+			SubGenreDTO subgenreDTOTemp = subGenreService.findOneByCode(subgenreTMDB.getId());
+			if(subgenreDTOTemp!=null) { //Nếu đã tồn tại thì update genre mới vào Subgenre
+				if (!subgenreDTOTemp.getGenreCodeList().contains(genreCode)) //Nếu chưa có genre trong danh sách genre thì thêm vào nếu không thì thôi.
+					subGenreService.save(subgenreDTOTemp);
+			} else {
+				//Lưu SubgenreMới
+				subGenreService.save(subgenreDTO);
+			}
+		}
+		return new ModelAndView("redirect:" + "/admin/subgenre");
 	}
 
 }
