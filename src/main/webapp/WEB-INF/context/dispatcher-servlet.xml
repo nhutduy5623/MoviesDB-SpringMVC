@@ -21,7 +21,7 @@
               http://www.springframework.org/schema/context/spring-context.xsd">
 
 	<context:component-scan
-		base-package="com.laptrinhweb.controller" />
+		base-package="com.laptrinhweb.controller, com.laptrinhweb.api" />
 
 	<mvc:annotation-driven />
 
@@ -34,5 +34,16 @@
 
 	</bean>
 	
+
+	
 	<mvc:resources mapping="/template/**" location="/template/" />
+	
+	
+	<!-- Thêm cấu hình Interceptor -->
+    <mvc:interceptors>
+		<mvc:interceptor>
+			<mvc:mapping path="/admin/*" />
+			<bean class="com.laptrinhweb.interceptor.AuthorizationInterceptor"></bean>
+		</mvc:interceptor>
+	</mvc:interceptors>
 </beans>
