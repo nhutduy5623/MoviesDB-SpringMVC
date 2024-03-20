@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence xmlns="http://xmlns.jcp.org/xml/ns/persistence"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_2.xsd"
+	version="2.2">
+	<persistence-unit name="MoviesDB_persistence-data">
+		<!-- Khai báo class Entity. Không cần cũng được nhưng hệ thống sẽ phải 
+			tự động tìm nếu không khai báo -->
+		<class>com.laptrinhweb.entity.UserEntity</class>
+		<class>com.laptrinhweb.entity.RoleEntity</class>
+		<class>com.laptrinhweb.entity.PermissionEntity</class>
+		<class>com.laptrinhweb.entity.GenreEntity</class>
+		<class>com.laptrinhweb.entity.SubGenreEntity</class>
+		<class>com.laptrinhweb.entity.RelatedPartyRoleEntity</class>
+		<class>com.laptrinhweb.entity.RelatedPartyEntity</class>
+		<class>com.laptrinhweb.entity.SerieEntity</class>
+		<class>com.laptrinhweb.entity.WorkEntity</class>
+		<class>com.laptrinhweb.entity.SerieEntity</class>
+		<class>com.laptrinhweb.entity.SerieEntity</class>
+	</persistence-unit>
+</persistence>
