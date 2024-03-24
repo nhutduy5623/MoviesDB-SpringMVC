@@ -127,7 +127,7 @@
 		    	data["avatar"] = $("#avatar1").val();	
 		    else {
 		    	thumbnail = $("#avatar2")[0].files[0].name;
-		    	data["avatar"] = "/images/"+thumbnail;
+		    	data["avatar"] = "/template/uploads/"+thumbnail;
 		    	var formData = new FormData();
 				formData.append('fileName', $("#avatar2")[0].files[0]);
 			    uploadFile(formData)

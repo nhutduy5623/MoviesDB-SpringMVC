@@ -10,6 +10,7 @@ import com.laptrinhweb.dto.GenreDTO;
 public interface IGenreService {
 	GenreDTO save(GenreDTO genre);
 	void delete(Long[] ids);
+	GenreDTO findOneByCode(String code);
 	List<GenreDTO> findAll();
 	List<GenreDTO> findAll(Pageable pageable);
 	GenreDTO findOne(Long id);

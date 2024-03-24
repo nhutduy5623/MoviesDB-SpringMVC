@@ -11,6 +11,7 @@ import com.laptrinhweb.entity.RelatedPartyWorkDetailEntity;
 public interface IRelatedPartyWorkDetailRepository extends JpaRepository<RelatedPartyWorkDetailEntity, Long> {
 	  @Query("SELECT rpwd FROM RelatedPartyWorkDetailEntity rpwd WHERE rpwd.work.id = :workId")
 	  List<RelatedPartyWorkDetailEntity> findRelatedPartyDetailsByWorkId(@Param("workId") Long workId);
-	
+	  
+	  
 }
 	

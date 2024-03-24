@@ -403,7 +403,7 @@ $(function(){
 		helpers : {
 			media : {},
 			overlay: {
-		        locked: false
+		        locked: true
 		    }
 		}
 	});	

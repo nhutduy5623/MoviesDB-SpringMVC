@@ -138,7 +138,7 @@
 		    	data["avatar"] = $("#thumbnail1").val();	
 		    else {
 		    	thumbnail = $("#thumbnail2")[0].files[0].name;
-		    	data["avatar"] = "/images/"+thumbnail;
+		    	data["avatar"] = "/template/uploads/"+thumbnail;
 		    }
 		    
 	    	if(id == false)

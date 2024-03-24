@@ -98,7 +98,7 @@
 		    	data["thumbnail"] = $("#thumbnail1").val();	
 		    else {
 		    	thumbnail = $("#thumbnail2")[0].files[0].name;
-		    	data["thumbnail"] = "/images/"+thumbnail;
+		    	data["thumbnail"] = "/template/uploads/"+thumbnail;
 		    }
 		    
 		    var formData = new FormData();

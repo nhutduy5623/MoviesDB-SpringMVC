@@ -25,7 +25,7 @@
 							<a href="#page-top"></a>
 						</li>
 						<li class="dropdown first">
-							<a class="btn btn-default lv1" data-toggle="dropdown" data-hover="dropdown">
+							<a class="btn btn-default lv1" href="<c:url value = '/home'/>" >
 							Home
 							</a>
 						</li>	
@@ -34,9 +34,9 @@
 							movies<i class="fa fa-angle-down" aria-hidden="true"></i>
 							</a>
 							<ul class="dropdown-menu level1">
-								<li><a href="work">All</a></li>
+								<li><a href="<c:url value='/work'/>">All</a></li>
 								<c:forEach var="genre" items="${genreList}">
-									<li><a href="work?genreCode=${genre.code}">${genre.name}</a></li>
+									<li><a href="<c:url value='/work?genreCode=${genre.code}'/>">${genre.name}</a></li>
 								</c:forEach>								
 							</ul>
 						</li>
@@ -45,8 +45,8 @@
 							Genres <i class="fa fa-angle-down" aria-hidden="true"></i>
 							</a>
 							<ul class="dropdown-menu level1">
-								<li><a href="genre">Genre</a></li>
-								<li><a href="subgenre">SubGenre</a></li>
+								<li><a href="<c:url value='/genre'/>">Genre</a></li>
+								<li><a href="<c:url value='/subgenre'/>">SubGenre</a></li>
 							</ul>
 						</li>
 						<li class="dropdown first">
@@ -54,8 +54,9 @@
 							People <i class="fa fa-angle-down" aria-hidden="true"></i>
 							</a>
 							<ul class="dropdown-menu level1">
+								<li><a href="<c:url value='relatedparty'/>">ALL</a></li>
 								<c:forEach var="people" items="${relatedPartyRoleList}"> 
-									<li><a href="${people.code}">${people.name}</a></li>
+									<li><a href="<c:url value='/relatedparty?roleCode=${people.code}'/>">${people.name}</a></li>
 								</c:forEach>
 							</ul>
 						</li>

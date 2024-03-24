@@ -51,9 +51,9 @@
 				<div class="flex-wrap-movielist">
 					<c:forEach var="work" items="${model.listResults}">
 						<div class="movie-item-style-2 movie-item-style-1">
-							<img src="${work.thumbnail}" alt="">
+							<img src="<c:url value='${work.thumbnail}'/>" alt="">
 							<div class="hvr-inner">
-	            				<a  href="moviesingle.html"> Read more <i class="ion-android-arrow-dropright"></i> </a>
+	            				<a  href="work/detail?code=${work.code}"> Read more <i class="ion-android-arrow-dropright"></i> </a>
 	            			</div>
 							<div class="mv-item-infor">
 								<h6><a href="#">${work.name}</a></h6>
@@ -68,10 +68,10 @@
 					<label>Movies per page:</label>
 					<form id="formChangeFilter" action="work" method="get">
 						<select id="maxPageItem" name="limit">
-							<option value="2">2</option>
-	                        <option value="5" selected="selected">5</option>
-	                        <option value="10">10</option>
-	                        <option value="20">20</option>
+							<option value="8">8</option>
+	                        <option value="16" selected="selected">16</option>
+	                        <option value="32">32</option>
+	                        <option value="64">64</option>
 						</select>
 						<input type="hidden" value="${model.nextPage}" name="page" id="nextPage" /> 
                 		<input type="hidden" value="${model.searchValue}" name="search" id="search" /> 
