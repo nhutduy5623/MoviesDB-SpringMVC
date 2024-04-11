@@ -16,6 +16,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.laptrinhweb.SystemConstant;
 import com.laptrinhweb.dto.WorkDTO;
 import com.laptrinhweb.dto.AI.AiGeneratedDTO;
 import com.laptrinhweb.dto.AI.ResulstGenerateDTO;
@@ -70,7 +71,7 @@ public class AiGenerate {
         String jsonBody = "{\"question\": \""+question+"\"}";
 
         // Địa chỉ của API Flask
-        String apiUrl = "http://127.0.0.1:6868/api_aiquestion";
+        String apiUrl = SystemConstant.AI_API_URL;
 
         // Tạo yêu cầu POST
         RequestBody requestBody = RequestBody.create(MediaType.parse("application/json"), jsonBody);
