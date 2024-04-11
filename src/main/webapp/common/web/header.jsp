@@ -4,7 +4,7 @@
 <%@include file="/common/taglib.jsp"%>
 <!-- BEGIN | Header -->
 <header class="ht-header full-width-hd">
-		<div class="row">
+		<div class="row" id="headerContainer">
 			<nav id="mainNav" class="navbar navbar-default navbar-custom">
 				<!-- Brand and toggle get grouped for better mobile display -->
 				<div class="navbar-header logo">
@@ -25,7 +25,7 @@
 							<a href="#page-top"></a>
 						</li>
 						<li class="dropdown first">
-							<a class="btn btn-default lv1" data-toggle="dropdown" data-hover="dropdown">
+							<a class="btn btn-default lv1" href="<c:url value = '/home'/>" >
 							Home
 							</a>
 						</li>	
@@ -34,9 +34,9 @@
 							movies<i class="fa fa-angle-down" aria-hidden="true"></i>
 							</a>
 							<ul class="dropdown-menu level1">
-								<li><a href="work">All</a></li>
+								<li><a href="<c:url value='/work'/>">All</a></li>
 								<c:forEach var="genre" items="${genreList}">
-									<li><a href="work?genreCode=${genre.code}">${genre.name}</a></li>
+									<li><a href="<c:url value='/work?genreCode=${genre.code}'/>">${genre.name}</a></li>
 								</c:forEach>								
 							</ul>
 						</li>
@@ -45,8 +45,8 @@
 							Genres <i class="fa fa-angle-down" aria-hidden="true"></i>
 							</a>
 							<ul class="dropdown-menu level1">
-								<li><a href="genre">Genre</a></li>
-								<li><a href="subgenre">SubGenre</a></li>
+								<li><a href="<c:url value='/genre'/>">Genre</a></li>
+								<li><a href="<c:url value='/subgenre'/>">SubGenre</a></li>
 							</ul>
 						</li>
 						<li class="dropdown first">
@@ -54,8 +54,9 @@
 							People <i class="fa fa-angle-down" aria-hidden="true"></i>
 							</a>
 							<ul class="dropdown-menu level1">
+								<li><a href="<c:url value='relatedparty'/>">ALL</a></li>
 								<c:forEach var="people" items="${relatedPartyRoleList}"> 
-									<li><a href="${people.code}">${people.name}</a></li>
+									<li><a href="<c:url value='/relatedparty?roleCode=${people.code}'/>">${people.name}</a></li>
 								</c:forEach>
 							</ul>
 						</li>
@@ -69,6 +70,11 @@
 								<li><a href="userprofile.html">user profile</a></li>
 								<li class="it-last"><a href="userrate.html">user rate</a></li>
 							</ul>
+						</li>
+						<li class="dropdown first">
+							<a class="btn btn-default lv1" href="<c:url value = '/AiGenerate'/>" >
+							Search With AI
+							</a>
 						</li>
 					</ul>
 					<ul class="nav navbar-nav flex-child-menu menu-right">
@@ -95,7 +101,9 @@
 							Wellcome, <%= SecurityUtil.getPrincipal().getFullName() %><i class="fa fa-angle-down" aria-hidden="true"></i>
 							</a>
 							<ul class="dropdown-menu level1">
-								<li><a href="landing.html">Landing</a></li>
+								<li><a href="<c:url value='/admin/home'/>">Admin Page</a></li>
+								<li><a href="<c:url value='/profile'/>">My Profile</a></li>
+								<li><a href="<c:url value='/userfavorite'/>">User Favorite List</a></li>
 							</ul>
 						</li>      
 							<li class="btn"><a href="<c:url value='/logout'/>">Logout</a></li>

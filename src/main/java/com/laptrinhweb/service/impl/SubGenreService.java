@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.laptrinhweb.dto.SubGenreDTO;
 import com.laptrinhweb.entity.SubGenreEntity;
 import com.laptrinhweb.repository.ISubGenreRepository;
+import com.laptrinhweb.repository.IWorkRepository;
 import com.laptrinhweb.service.ISubGenreService;
 import com.laptrinhweb.service.impl.convertEntity_DTO.SubGenreConvert;
 
@@ -24,6 +25,9 @@ public class SubGenreService implements ISubGenreService {
 	
 	@Autowired
 	SubGenreConvert subGenreConvert;
+	
+	@Autowired
+	IWorkRepository workRepository;
 	
 	@Override
 	@Transactional
@@ -133,5 +137,15 @@ public class SubGenreService implements ISubGenreService {
 		if(subgenreEntity == null)
 			return null;
 		return subGenreConvert.toDTO(subGenreRepository.findOneByCode(code));
+	}
+
+	@Override
+	public List<SubGenreDTO> findByWorkCode(String workCode) {
+		List<SubGenreEntity> subGenreEntities = workRepository.findOneByCode(workCode).getSubGenreList();
+		List<SubGenreDTO> subGenreDTOs = new ArrayList<>();
+		for(SubGenreEntity subGenreEntity: subGenreEntities) {
+			subGenreDTOs.add(subGenreConvert.toDTO(subGenreEntity));
+		}
+		return subGenreDTOs;
 	}	
 }

@@ -22,4 +22,6 @@ public interface ISubGenreService {
 	
 	List<SubGenreDTO> findByNamePageable(String name, Pageable pageable);
 	Integer countByName(String name);
+	
+	List<SubGenreDTO> findByWorkCode(String workCode);
 }

@@ -122,5 +122,9 @@ public class GenreService implements IGenreService {
 		}
 		return genreCodeList;
 	}
-	
+
+	@Override
+	public GenreDTO findOneByCode(String code) {
+		return genreConvert.toDTO(genreRepository.findOneByCode(code));
+	}	
 }

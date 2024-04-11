@@ -6919,6 +6919,13 @@ p.ceb-single {
   height: auto;
   background-color: #ffffff;
 }
+.overlay .favoriteForm-content {
+  width: 430px;
+  padding: 50px;
+  border: 1px solid #e1e1e1;
+  height: auto;
+  background-color: #ffffff;
+}
 @media (max-width: 767px) {
   .overlay .login-content {
     width: 300px;

@@ -97,6 +97,11 @@ public class WorkService implements IWorkService{
 	public WorkDTO findOne(Long id) {
 		return workConvert.toDTO(workRepository.findOne(id));
 	}
+	
+	@Override
+	public WorkDTO findOneByCode(String code) {
+		return workConvert.toDTO(workRepository.findOneByCode(code));
+	}
 
 	@Override
 	public Integer countAll() {
@@ -118,6 +123,7 @@ public class WorkService implements IWorkService{
 	public Integer countByName(String name) {
 		return workRepository.countByName(name);
 	}
+	
 
 	@Override
 	public Map<String, String> findAll_HasMap() {
@@ -181,6 +187,16 @@ public class WorkService implements IWorkService{
 		mapWorkDTO.put("list", workDTOs);
 		mapWorkDTO.put("size", size);
 		return mapWorkDTO;
+	}
+	
+	@Override
+	public List<WorkDTO> findByRelatedPartyCode(String code) {
+		List<WorkEntity> workEntities = workRepository.findByRelatedPartyCode(code);
+		List<WorkDTO> workDTOs = new ArrayList<>();
+		for(WorkEntity workEntity : workEntities) {
+			workDTOs.add(workConvert.toDTO(workEntity));
+		}
+		return workDTOs;
 	}
 
 }
