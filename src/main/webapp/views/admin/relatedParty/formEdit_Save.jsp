@@ -123,7 +123,8 @@
 	            data[""+v.name+""] = v.value;	
 		    })
 		    data["avatar"] = $("#avatar1").val();	
-		    if($("#avatar1").val()!="")		    	
+		    var isParentVisible = $("#avatar2").parent().parent().is(":visible");
+            if (isParentVisible == false)  	
 		    	data["avatar"] = $("#avatar1").val();	
 		    else {
 		    	thumbnail = $("#avatar2")[0].files[0].name;

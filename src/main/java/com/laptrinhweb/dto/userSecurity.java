@@ -21,16 +21,18 @@ public class userSecurity extends User{
 		// TODO Auto-generated constructor stub
 	}
 	
-	public userSecurity(Long id, String username, String password, String fullName, boolean enabled, boolean accountNonExpired,
+	public userSecurity(Long id, String username, String password, String fullName, String code, boolean enabled, boolean accountNonExpired,
 			boolean credentialsNonExpired, boolean accountNonLocked,
 			Collection<? extends GrantedAuthority> authorities) {
 		super(username, password, enabled, accountNonExpired, credentialsNonExpired, accountNonLocked, authorities);
 		this.fullName = fullName;
+		this.code = code;
 		this.id = id;
 	}
 	
 	private Long id;
 	private String fullName;
+	private String code;
 	
 	
 
@@ -48,6 +50,14 @@ public class userSecurity extends User{
 
 	public void setId(Long id) {
 		this.id = id;
+	}
+
+	public String getCode() {
+		return code;
+	}
+
+	public void setCode(String code) {
+		this.code = code;
 	}
 	
 	

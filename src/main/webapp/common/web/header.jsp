@@ -4,7 +4,7 @@
 <%@include file="/common/taglib.jsp"%>
 <!-- BEGIN | Header -->
 <header class="ht-header full-width-hd">
-		<div class="row">
+		<div class="row" id="headerContainer">
 			<nav id="mainNav" class="navbar navbar-default navbar-custom">
 				<!-- Brand and toggle get grouped for better mobile display -->
 				<div class="navbar-header logo">
@@ -71,6 +71,11 @@
 								<li class="it-last"><a href="userrate.html">user rate</a></li>
 							</ul>
 						</li>
+						<li class="dropdown first">
+							<a class="btn btn-default lv1" href="<c:url value = '/AiGenerate'/>" >
+							Search With AI
+							</a>
+						</li>
 					</ul>
 					<ul class="nav navbar-nav flex-child-menu menu-right">
 						<li class="dropdown first">
@@ -96,7 +101,9 @@
 							Wellcome, <%= SecurityUtil.getPrincipal().getFullName() %><i class="fa fa-angle-down" aria-hidden="true"></i>
 							</a>
 							<ul class="dropdown-menu level1">
-								<li><a href="landing.html">Landing</a></li>
+								<li><a href="<c:url value='/admin/home'/>">Admin Page</a></li>
+								<li><a href="<c:url value='/profile'/>">My Profile</a></li>
+								<li><a href="<c:url value='/userfavorite'/>">User Favorite List</a></li>
 							</ul>
 						</li>      
 							<li class="btn"><a href="<c:url value='/logout'/>">Logout</a></li>

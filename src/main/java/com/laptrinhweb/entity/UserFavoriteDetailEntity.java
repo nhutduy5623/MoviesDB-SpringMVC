@@ -28,4 +28,46 @@ public class UserFavoriteDetailEntity extends baseEntity {
 	@Column(name = "note", columnDefinition = "TEXT")
 	private String note;
 
+	public WorkEntity getWork() {
+		return work;
+	}
+
+	public void setWork(WorkEntity work) {
+		this.work = work;
+	}
+
+	public UserEntity getUser() {
+		return user;
+	}
+
+	public void setUser(UserEntity user) {
+		this.user = user;
+	}
+
+	public int getReviewScore() {
+		return reviewScore;
+	}
+
+	public void setReviewScore(int reviewScore) {
+		this.reviewScore = reviewScore;
+	}
+
+	public String getViewingStatus() {
+		return viewingStatus;
+	}
+
+	public void setViewingStatus(String viewingStatus) {
+		this.viewingStatus = viewingStatus;
+	}
+
+	public String getNote() {
+		return note;
+	}
+
+	public void setNote(String note) {
+		this.note = note;
+	}
+	
+	
+
 }

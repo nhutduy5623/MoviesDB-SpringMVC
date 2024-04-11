@@ -3,6 +3,7 @@ package com.laptrinhweb.util;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 
@@ -12,8 +13,13 @@ public class SecurityUtil {
 
 	// Get UserSecurity
 	public static userSecurity getPrincipal() {
-		userSecurity userSecurity = (userSecurity) (SecurityContextHolder.getContext()).getAuthentication().getPrincipal();
-		return userSecurity;
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+	    if (authentication != null && authentication.isAuthenticated() && authentication.getPrincipal() instanceof userSecurity) {
+	        return (userSecurity) authentication.getPrincipal();
+	    } else {
+	        // Người dùng chưa đăng nhập hoặc không có đối tượng Principal hoặc không phải là userSecurity
+	        return null; // hoặc throw một exception tùy thuộc vào logic của ứng dụng của bạn
+	    }
 	}
 
 	// Get Tất cả các role của User đã thành công đăng nhập.

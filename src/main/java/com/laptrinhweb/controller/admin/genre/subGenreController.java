@@ -2,7 +2,6 @@ package com.laptrinhweb.controller.admin.genre;
 
 import java.io.IOException;
 import java.text.ParseException;
-import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -18,9 +17,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.laptrinhweb.SystemConstant;
 import com.laptrinhweb.dto.SubGenreDTO;
-import com.laptrinhweb.dto.WorkDTO;
 import com.laptrinhweb.dto.TheMovieDB_Format.ListSubGenresTMDB;
-import com.laptrinhweb.dto.TheMovieDB_Format.TMDB_WorkDTO;
 import com.laptrinhweb.dto.TheMovieDB_Format.TMDB_subGenreDTO;
 import com.laptrinhweb.service.IGenreService;
 import com.laptrinhweb.service.ISubGenreService;

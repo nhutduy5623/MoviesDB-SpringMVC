@@ -14,7 +14,6 @@
  #pagination1 *{ 
  	border: 0px rgba(0, 0, 0, 0);
  }
-
 </style>
 
 <div class="hero common-hero">

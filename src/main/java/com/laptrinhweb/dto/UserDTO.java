@@ -11,6 +11,8 @@ public class UserDTO extends AbstractDTO<UserDTO> {
 	private int status = 1;
 	private String avatar;
 	private List<String> roleCodeList = new ArrayList<>();
+	private String oldPassword;
+	private String reTypePassword;
 	
 	public String getCode() {
 		return code;
@@ -54,4 +56,16 @@ public class UserDTO extends AbstractDTO<UserDTO> {
 	public void setRoleCodeList(List<String> roleCodeList) {
 		this.roleCodeList = roleCodeList;
 	}	
+	public String getReTypePassword() {
+		return reTypePassword;
+	}
+	public void setReTypePassword(String reTypePassword) {
+		this.reTypePassword = reTypePassword;
+	}
+	public String getOldPassword() {
+		return oldPassword;
+	}
+	public void setOldPassword(String oldPassword) {
+		this.oldPassword = oldPassword;
+	}
 }

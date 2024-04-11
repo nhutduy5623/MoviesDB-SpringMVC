@@ -85,7 +85,7 @@
                                 	<tr>
 	                                    <td>${item.code}</td>
 	                                    <td>${item.name}</td>
-	                                    <td><img style="padding: 10%; border-radius: 1%" src="${item.avatar}"></td>
+	                                    <td><img style="padding: 10%; border-radius: 1%" src="<c:url value='${item.avatar}'/>"></td>
 	                                    <td>${item.followerCount}</td>
 	                                    <td>${item.overview}</td>
 	                                    <td>${item.website}</td>
