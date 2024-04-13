@@ -78,12 +78,14 @@
 	                                    </td>
 	                                    <td>${item.modifiedBy}</td>
 	                                    <td >
-	                                   		<div class="fw-icons">
-	                                   			<a href="role/edit?id=${item.id}"><i class="fa fa-wrench"></i>Edit</a>
-	                                    	</div>
-	                                    	<div class="fw-icons" id="${item.id}">
-	                                    		<a href="#" class="btnDelete" onclick="onClickBtnDelete()"  id="btnDelete_${item.id}"><i class="fa fa-trash"></i>Delete</a>
-	                                    	</div>                            
+	                                   		<c:if test="${item.code != 'DEVELOPMENT'}">
+		                                   		<div class="fw-icons">
+		                                   			<a href="role/edit?id=${item.id}"><i class="fa fa-wrench"></i>Edit</a>
+		                                    	</div>
+		                                    	<div class="fw-icons" id="${item.id}">
+		                                    		<a href="#" class="btnDelete" onclick="onClickBtnDelete()"  id="btnDelete_${item.id}"><i class="fa fa-trash"></i>Delete</a>
+		                                    	</div> 
+	                                   		</c:if>                           
 	                                    </td>
                                 	</tr>  
                                 </c:forEach>                              
@@ -92,7 +94,7 @@
                     </div>
                     <!-- Pagination -->
                     <div style="width: 100%; display: flex; justify-content: space-between; align-items: center">
-                    	<form id="formChangePage" action="permission" method="get" style="height: 50%; margin: auto 0;">
+                    	<form id="formChangePage" action="role" method="get" style="height: 50%; margin: auto 0;">
                     		Max page item:
 	                		<select class="form-control" name="limit" id="maxPageItem" style="width: 100%; height: 100%">
 	                               <option value="2">2</option>

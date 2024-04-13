@@ -6,6 +6,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.laptrinhweb.dto.ViewerVoteDetailDTO;
+import com.laptrinhweb.dto.ViewerVoteDetailFullDTO;
 
 @Service
 public interface IViewerVoteDetailService {
@@ -23,4 +24,8 @@ public interface IViewerVoteDetailService {
 	long countByWorkCode(String workCode);
 	
 	void delete(long id);
+	
+	List<ViewerVoteDetailFullDTO> findByUserPageable(long userId, Pageable pageable);
+	
+	long countByUser(long userId);
 }

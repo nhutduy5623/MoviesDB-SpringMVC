@@ -71,9 +71,9 @@
                                 <c:forEach var="item" items="${model.listResults}">
                                 	<tr>
 	                                    <td>${item.code}</td>
-	                                    <td><img src ="${item.avatar}"/></td>
+	                                    <td><img src ="<c:url value='${item.avatar}'/>"/></td>
 	                                    <td>${item.email}</td>
-	                                    <td>${item.passWord}</td>
+	                                    <td>...</td>
 	                                    <td>${item.fullName}</td>
 	                                    <c:if test="${item.status == 1}"><td>Đang hoạt động</td></c:if>
 	                                    <c:if test="${item.status != 1}"><td>Đã bị khoá</td></c:if>
@@ -83,12 +83,14 @@
 			                                </c:forEach>
 	                                    </td>
 	                                    <td >
-	                                   		<div class="fw-icons">
-	                                   			<a href="user/edit?id=${item.id}"><i class="fa fa-wrench"></i>Edit</a>
-	                                    	</div>
-	                                    	<div class="fw-icons" id="${item.id}">
-	                                    		<a href="#" class="btnDelete" onclick="onClickBtnDelete()"  id="btnDelete_${item.id}"><i class="fa fa-trash"></i>Delete</a>
-	                                    	</div>                            
+	                                    	<c:if test="${item.code != 'DEVELOPMENT'}">
+		                                   		<div class="fw-icons">
+		                                   			<a href="user/edit?id=${item.id}"><i class="fa fa-wrench"></i>Edit</a>
+		                                    	</div>
+		                                    	<div class="fw-icons" id="${item.id}">
+		                                    		<a href="#" class="btnDelete" onclick="onClickBtnDelete()"  id="btnDelete_${item.id}"><i class="fa fa-trash"></i>Delete</a>
+		                                    	</div>    
+	                                    	</c:if>                        
 	                                    </td>
                                 	</tr>  
                                 </c:forEach>                              

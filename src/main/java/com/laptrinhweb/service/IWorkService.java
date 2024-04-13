@@ -5,6 +5,8 @@ import java.util.Map;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 import com.laptrinhweb.dto.SubGenreDTO;
 import com.laptrinhweb.dto.WorkDTO;
@@ -29,5 +31,11 @@ public interface IWorkService {
 	Map<String, Object> findBy_OrName_OrGenre_OrSubGenres(String genreCode, List<String> subGenreCodeList, String searchValue, Pageable pageable);
 	
 	List<WorkDTO> findByRelatedPartyCode(String code);
+	
+	List<WorkDTO> findTopByScore(int limit);
+	List<WorkDTO> findTopByVoteCount(int limit);
+	List<WorkDTO> findTopByRelatedDate(int limit);
+	
+	List<WorkDTO> findBySerieCode(String serieCode);
 	
 }

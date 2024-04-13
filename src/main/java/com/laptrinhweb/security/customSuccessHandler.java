@@ -40,7 +40,7 @@ private RedirectStrategy redirectStrategy = new DefaultRedirectStrategy();
 	}
 	
 	private boolean isAdmin(List<String> roles) {
-		if (roles.contains("ADMIN")) {
+		if (roles.contains("ADMIN_HOME")) {
 			return true;
 		}
 		return false;		

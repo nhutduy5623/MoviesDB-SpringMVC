@@ -24,4 +24,5 @@ public interface ISubGenreService {
 	Integer countByName(String name);
 	
 	List<SubGenreDTO> findByWorkCode(String workCode);
+	Map<String, List<SubGenreDTO>> findByWorkCode_HasMap(List<String> list_WorkCode);
 }

@@ -120,6 +120,7 @@ public class workController {
 		ModelAndView mav = new ModelAndView("web/work/gridWork");
 		mav.addObject("model", workDTO);
 		mav.addObject("genreCode", genreCode);
+		mav.addObject("countMovie", size);
 		mav.addObject("subGenreCodeList", subGenreCodeList);
 		mav.addObject("subGenreList", subGenreService.findAll());
 		mav.addObject("genreList", genreService.findAll());
@@ -164,6 +165,8 @@ public class workController {
 	
 		mav.addObject("vote", voteDTO);
 		mav.addObject("voteOfUser", voteOfUser);
+		
+		mav.addObject("relatedWorkList", workService.findBySerieCode(workDTO.getSerieCode()));
 		
 		return mav;
 	}

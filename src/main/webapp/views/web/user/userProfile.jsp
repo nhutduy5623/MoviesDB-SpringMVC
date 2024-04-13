@@ -162,27 +162,6 @@ a.disabled {
 	</div>
 </div>
 <script>
-	function setOnClickBtnUserPage() {
-		const formChangePass = document.getElementById("form-change-password-profile");
-		const formProfile = document.getElementById("form-change-info-profile");
-
-		document.getElementById("btn-profile").addEventListener("click",
-				function(event) {
-					event.preventDefault();
-					formProfile.scrollIntoView({
-						behavior : "smooth",
-						block : "center"
-					});
-				});
-		document.getElementById("btn-change-password").addEventListener(
-				"click", function(event) {
-					event.preventDefault();
-					formChangePass.scrollIntoView({
-						behavior : "smooth",
-						block : "center"
-					});
-				});
-	}
 
 	function changePassword(){
 		// Change password
@@ -385,8 +364,6 @@ a.disabled {
 	}
 	
 	
-	
-	setOnClickBtnUserPage();
 	changePassword();
 	changeInfo();
 	changeAvatar();

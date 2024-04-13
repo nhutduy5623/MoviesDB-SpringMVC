@@ -36,7 +36,7 @@
 		<div class="row ipad-width">
 			<div class="col-md-8 col-sm-12 col-xs-12">
 				<div class="topbar-filter">
-					<p>Found <span>1,608 movies</span> in total</p>
+					<p>Found <span>${countMovie} movies</span> in total</p>
 					<label>Genre:</label>
 					<select id="genreFilter">
 						<option value="-">All</option>

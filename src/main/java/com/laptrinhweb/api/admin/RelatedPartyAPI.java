@@ -29,5 +29,5 @@ public class RelatedPartyAPI {
 	public void deleteGenre(@RequestBody Long[] ids) {
 		relatedPartyService.delete(ids);
 	}
-
+	
 }

@@ -18,8 +18,10 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.laptrinhweb.SystemConstant;
 import com.laptrinhweb.dto.WorkDTO;
+import com.laptrinhweb.dto.TheMovieDB_Format.TMDB_ListFilm;
 import com.laptrinhweb.dto.TheMovieDB_Format.TMDB_TheFilm_Videos;
 import com.laptrinhweb.dto.TheMovieDB_Format.TMDB_WorkDTO;
+import com.laptrinhweb.dto.TheMovieDB_Format.resultInListFilm;
 import com.laptrinhweb.service.IGenreService;
 import com.laptrinhweb.service.IRelatedPartyRoleService;
 import com.laptrinhweb.service.IRelatedPartyService;
@@ -159,6 +161,52 @@ public class workController {
 		mav.addObject("listRelatedParty", relatedPartyService.findAll());
 		mav.addObject("listRPByWork", relatedPartyService.findByWork(new WorkDTO()));
 		mav.addObject("listRPWithoutWork", relatedPartyService.findWithoutWork(new WorkDTO()));
+		return mav;
+	}
+	
+	
+	@RequestMapping(value = "/admin/work/autoAddFilm", method = RequestMethod.GET)
+	public ModelAndView autoAddFilmWithAPI(@RequestParam(value = "page", required = true) String page, 
+			@RequestParam(value = "genreCode", required = true) String genreCode,
+			HttpServletRequest request) throws IOException, ParseException {
+
+		OkHttpClient client = new OkHttpClient();		
+		Request rqListAPI = new Request.Builder().url("https://api.themoviedb.org/3/"+genreCode+"/changes?page=1").get()
+				.addHeader("accept", "application/json")
+				.addHeader("Authorization", "Bearer " + SystemConstant.themoviedb_AccessToken).build();
+		//Get List film Code
+		Response responseList = client.newCall(rqListAPI).execute();
+		String listFilmTMDBJson = responseList.body().string();		
+		ObjectMapper objectMapper = new ObjectMapper();
+		TMDB_ListFilm listFilm = objectMapper.readValue(listFilmTMDBJson, TMDB_ListFilm.class);
+		if(listFilm.isSuccess())
+			for(resultInListFilm result: listFilm.getResults()) {
+				String code = result.getId();
+				if(workService.findOneByCode(code)==null) {
+					Request rqAPI = new Request.Builder().url("https://api.themoviedb.org/3/"+genreCode+"/" + code + "?language=en-US").get()
+							.addHeader("accept", "application/json")
+							.addHeader("Authorization", "Bearer " + SystemConstant.themoviedb_AccessToken).build();
+	
+					Request rqVideo = new Request.Builder().url("https://api.themoviedb.org/3/"+genreCode+"/" + code + "/videos?language=en-US")
+							.get().addHeader("accept", "application/json")
+							.addHeader("Authorization", "Bearer " + SystemConstant.themoviedb_AccessToken).build();
+					Response response = client.newCall(rqAPI).execute();
+					Response responseVideo = client.newCall(rqVideo).execute();
+					// JSON FLIM INFORMATION
+					String jsonTMDB = response.body().string();
+					System.out.println("response.body().string(): " + jsonTMDB);
+					TMDB_WorkDTO workTMDB = objectMapper.readValue(jsonTMDB, TMDB_WorkDTO.class);
+					WorkDTO workDTO = new WorkDTO(workTMDB, genreCode);
+					// JSON Trailer
+					String jsonTMDBVideo = responseVideo.body().string();
+					TMDB_TheFilm_Videos videos = objectMapper.readValue(jsonTMDBVideo, TMDB_TheFilm_Videos.class);
+					if(videos.getResults()!=null && !videos.getResults().isEmpty()) {
+						workDTO.setVideo("https://www.youtube.com/watch?v="+videos.getResults().get(0).getKey());
+					}				
+					workService.save(workDTO);
+				}			
+			}
+		ModelAndView mav = new ModelAndView("redirect:/admin/work");
 		return mav;
 	}
 }

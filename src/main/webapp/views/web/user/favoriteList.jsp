@@ -18,6 +18,11 @@
 	overflow: hidden;
 	text-overflow: ellipsis;
 }
+.user-img a img {
+	border-radius: 50%;
+	width: 150px;
+	height: 150px;
+}
 </style>
     
 <div class="hero user-hero">
@@ -49,7 +54,7 @@
 						<ul>
 							<li><a href="<c:url value='/profile'/>">Profile</a></li>
 							<li class="active"><a href="<c:url value='/userfavorite'/>">Favorite movies</a></li>
-							<li><a href="userrate.html">Rated movies</a></li>
+							<li><a href="<c:url value='/userrate'/>">Rated movies</a></li>
 						</ul>
 					</div>
 					<div class="user-fav">
@@ -71,8 +76,6 @@
 							<option value="${genre.code}">${genre.name}</option>
 						</c:forEach>
 					</select>
-					<a href="userfavoritelist.html" class="list"><i class="ion-ios-list-outline active"></i></a>
-					<a href="userfavoritegrid.html" class="grid"><i class="ion-grid "></i></a>
 				</div>
 				<div class="flex-wrap-movielist user-fav-list" style="display: flex; flex-direction: column;">				
 					<c:forEach var="favoriteItem" items="${model.listResults}">

@@ -65,7 +65,7 @@ public class UserController {
 		if (isCorrect) {
 			data.put("success", true);
 			user.setCode(user.getEmail());
-			user.setAvatar("/template/web/images/uploads/avatar-default.jpg");
+			user.setAvatar("/template/web/images/uploads/author2.png");
 			userService.save(user);
 		}
 		try {

@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.laptrinhweb.dto.RelatedPartyDTO;
 import com.laptrinhweb.dto.ViewerVoteDetailDTO;
+import com.laptrinhweb.dto.ViewerVoteDetailFullDTO;
 import com.laptrinhweb.dto.WorkDTO;
 import com.laptrinhweb.entity.GenreEntity;
 import com.laptrinhweb.entity.RelatedPartyEntity;
@@ -108,4 +109,20 @@ public class ViewerVoteDetailService implements IViewerVoteDetailService{
 	public void delete(long id) {
 		voteRepo.delete(id);
 	}
+	
+	@Override
+	public List<ViewerVoteDetailFullDTO> findByUserPageable(long userId, Pageable pageable) {
+		List<ViewerVoteDetailEntity> entities = voteRepo.findByUserPageable(userId, pageable).getContent();
+		List<ViewerVoteDetailFullDTO> dTOs = new ArrayList<>();
+		for(ViewerVoteDetailEntity entity : entities) {
+			dTOs.add(voteConvert.toDTOFull(entity));
+		}
+		return dTOs;
+	}
+
+	@Override
+	public long countByUser(long userId) {
+		return voteRepo.countByUser(userId);
+	}
+
 }

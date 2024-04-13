@@ -33,4 +33,10 @@ public interface ViewerVoteDetailRepository extends JpaRepository<ViewerVoteDeta
 	
 	@Query("SELECT SUM(vv.score)/COUNT(vv) FROM ViewerVoteDetailEntity vv WHERE vv.work.code = :workCode")
 	public float scoreAverageByWorkCode(@Param("workCode")String workCode);
+	
+	@Query("SELECT vv FROM ViewerVoteDetailEntity vv WHERE vv.user.id = :userId ORDER BY vv.modifiedDate DESC")
+    Page<ViewerVoteDetailEntity> findByUserPageable(@Param("userId") long userId, Pageable pageable);
+	
+	@Query("SELECT COUNT(vv) FROM ViewerVoteDetailEntity vv WHERE vv.user.id = :userId")
+	public long countByUser(@Param("userId")long userId);
 }

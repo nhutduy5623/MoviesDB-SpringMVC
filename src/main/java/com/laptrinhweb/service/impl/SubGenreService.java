@@ -22,13 +22,13 @@ public class SubGenreService implements ISubGenreService {
 
 	@Autowired
 	ISubGenreRepository subGenreRepository;
-	
+
 	@Autowired
 	SubGenreConvert subGenreConvert;
-	
+
 	@Autowired
 	IWorkRepository workRepository;
-	
+
 	@Override
 	@Transactional
 	public SubGenreDTO save(SubGenreDTO subGenreDTO) {
@@ -41,19 +41,19 @@ public class SubGenreService implements ISubGenreService {
 	@Transactional
 	public void delete(Long[] ids) {
 		SubGenreEntity subGenreEntity;
-		for(long id: ids) {
+		for (long id : ids) {
 			subGenreEntity = subGenreRepository.findOne(id);
 			subGenreEntity.getGenreList().clear();
 			subGenreRepository.save(subGenreEntity);
-			subGenreRepository.delete(id);	
-		} 			
+			subGenreRepository.delete(id);
+		}
 	}
 
 	@Override
 	public List<SubGenreDTO> findAll() {
 		List<SubGenreEntity> subGenreEntities = subGenreRepository.findAll();
 		List<SubGenreDTO> subGenreDTOs = new ArrayList<>();
-		for(SubGenreEntity subGenreEntity:subGenreEntities) {
+		for (SubGenreEntity subGenreEntity : subGenreEntities) {
 			subGenreDTOs.add(subGenreConvert.toDTO(subGenreEntity));
 		}
 		return subGenreDTOs;
@@ -61,9 +61,10 @@ public class SubGenreService implements ISubGenreService {
 
 	@Override
 	public List<SubGenreDTO> findByGenreList_Code(String genreCode, Pageable pageable) {
-		List<SubGenreEntity> subGenreEntities = subGenreRepository.findByGenreList_Code(genreCode, pageable).getContent();
+		List<SubGenreEntity> subGenreEntities = subGenreRepository.findByGenreList_Code(genreCode, pageable)
+				.getContent();
 		List<SubGenreDTO> subGenreDTOs = new ArrayList<>();
-		for(SubGenreEntity subGenreEntity:subGenreEntities) {
+		for (SubGenreEntity subGenreEntity : subGenreEntities) {
 			subGenreDTOs.add(subGenreConvert.toDTO(subGenreEntity));
 		}
 		return subGenreDTOs;
@@ -73,7 +74,7 @@ public class SubGenreService implements ISubGenreService {
 	public List<SubGenreDTO> findAll(Pageable pageable) {
 		List<SubGenreEntity> subGenreEntities = subGenreRepository.findAll(pageable).getContent();
 		List<SubGenreDTO> subGenreDTOs = new ArrayList<>();
-		for(SubGenreEntity subGenreEntity:subGenreEntities) {
+		for (SubGenreEntity subGenreEntity : subGenreEntities) {
 			subGenreDTOs.add(subGenreConvert.toDTO(subGenreEntity));
 		}
 		return subGenreDTOs;
@@ -99,7 +100,7 @@ public class SubGenreService implements ISubGenreService {
 	public Map<String, String> findAll_HasMap() {
 		List<SubGenreEntity> subGenreEntities = subGenreRepository.findAll();
 		Map<String, String> subGenreDTO_Map = new HashMap<>();
-		for(SubGenreEntity subGenreEntity:subGenreEntities) {
+		for (SubGenreEntity subGenreEntity : subGenreEntities) {
 			subGenreDTO_Map.put(subGenreEntity.getCode(), subGenreEntity.getName());
 		}
 		return subGenreDTO_Map;
@@ -109,7 +110,7 @@ public class SubGenreService implements ISubGenreService {
 	public List<SubGenreDTO> findByNamePageable(String name, Pageable pageable) {
 		List<SubGenreEntity> subGenreEntities = subGenreRepository.findByNamePageable(name, pageable).getContent();
 		List<SubGenreDTO> subGenreDTOs = new ArrayList<>();
-		for(SubGenreEntity subGenreEntity:subGenreEntities) {
+		for (SubGenreEntity subGenreEntity : subGenreEntities) {
 			subGenreDTOs.add(subGenreConvert.toDTO(subGenreEntity));
 		}
 		return subGenreDTOs;
@@ -124,7 +125,7 @@ public class SubGenreService implements ISubGenreService {
 	public List<SubGenreDTO> findByGenreList_Code(String genreCode) {
 		List<SubGenreEntity> subGenreEntities = subGenreRepository.findByGenreList_Code(genreCode);
 		List<SubGenreDTO> subGenreDTOs = new ArrayList<>();
-		for(SubGenreEntity subGenreEntity:subGenreEntities) {
+		for (SubGenreEntity subGenreEntity : subGenreEntities) {
 			subGenreDTOs.add(subGenreConvert.toDTO(subGenreEntity));
 		}
 		return subGenreDTOs;
@@ -133,8 +134,8 @@ public class SubGenreService implements ISubGenreService {
 	@Override
 	public SubGenreDTO findOneByCode(String code) {
 		SubGenreEntity subgenreEntity;
-		subgenreEntity= subGenreRepository.findOneByCode(code);
-		if(subgenreEntity == null)
+		subgenreEntity = subGenreRepository.findOneByCode(code);
+		if (subgenreEntity == null)
 			return null;
 		return subGenreConvert.toDTO(subGenreRepository.findOneByCode(code));
 	}
@@ -143,9 +144,18 @@ public class SubGenreService implements ISubGenreService {
 	public List<SubGenreDTO> findByWorkCode(String workCode) {
 		List<SubGenreEntity> subGenreEntities = workRepository.findOneByCode(workCode).getSubGenreList();
 		List<SubGenreDTO> subGenreDTOs = new ArrayList<>();
-		for(SubGenreEntity subGenreEntity: subGenreEntities) {
+		for (SubGenreEntity subGenreEntity : subGenreEntities) {
 			subGenreDTOs.add(subGenreConvert.toDTO(subGenreEntity));
 		}
 		return subGenreDTOs;
-	}	
+	}
+
+	@Override
+	public Map<String, List<SubGenreDTO>> findByWorkCode_HasMap(List<String> workCodes) {
+		Map<String, List<SubGenreDTO>> subGenreDTO_Map = new HashMap<>();
+		for (String workCode : workCodes) {
+			subGenreDTO_Map.put(workCode, findByWorkCode(workCode));
+		}
+		return subGenreDTO_Map;
+	}
 }

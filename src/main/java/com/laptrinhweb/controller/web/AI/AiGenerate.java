@@ -103,8 +103,17 @@ public class AiGenerate {
         List<WorkDTO> workDTOs = new ArrayList<WorkDTO>();
         for(String workCode:generatedDTO.getCode()) {
         	if(workCode!=null && !workCode.equals("")) {
-            	workDTOs.add(workService.findOneByCode(workCode));
-        	}
+        		WorkDTO workDTO = workService.findOneByCode(workCode);
+        		if(workDTO!=null)
+        			workDTOs.add(workDTO);
+        		else {
+        			workDTO = workService.findOne(Long.parseLong(workCode));
+        			if(workDTO!=null)
+        				workDTOs.add(workDTO);
+        		}
+        			
+        	}	
+        	
         }
         ResulstGenerateDTO results = new ResulstGenerateDTO();
         results.setAnswer(generatedDTO.getAnswer());

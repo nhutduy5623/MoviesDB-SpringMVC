@@ -54,23 +54,12 @@
 							People <i class="fa fa-angle-down" aria-hidden="true"></i>
 							</a>
 							<ul class="dropdown-menu level1">
-								<li><a href="<c:url value='relatedparty'/>">ALL</a></li>
+								<li><a href="<c:url value='/relatedparty'/>">ALL</a></li>
 								<c:forEach var="people" items="${relatedPartyRoleList}"> 
 									<li><a href="<c:url value='/relatedparty?roleCode=${people.code}'/>">${people.name}</a></li>
 								</c:forEach>
 							</ul>
-						</li>
-						<li class="dropdown first">
-							<a class="btn btn-default dropdown-toggle lv1" data-toggle="dropdown" data-hover="dropdown">
-							community <i class="fa fa-angle-down" aria-hidden="true"></i>
-							</a>
-							<ul class="dropdown-menu level1">
-								<li><a href="userfavoritegrid.html">user favorite grid</a></li>
-								<li><a href="userfavoritelist.html">user favorite list</a></li>
-								<li><a href="userprofile.html">user profile</a></li>
-								<li class="it-last"><a href="userrate.html">user rate</a></li>
-							</ul>
-						</li>
+						</li>						
 						<li class="dropdown first">
 							<a class="btn btn-default lv1" href="<c:url value = '/AiGenerate'/>" >
 							Search With AI
@@ -78,18 +67,7 @@
 						</li>
 					</ul>
 					<ul class="nav navbar-nav flex-child-menu menu-right">
-						<li class="dropdown first">
-							<a class="btn btn-default dropdown-toggle lv1" data-toggle="dropdown" data-hover="dropdown">
-							pages <i class="fa fa-angle-down" aria-hidden="true"></i>
-							</a>
-							<ul class="dropdown-menu level1">
-								<li><a href="landing.html">Landing</a></li>
-								<li><a href="404.html">404 Page</a></li>
-								<li class="it-last"><a href="comingsoon.html">Coming soon</a></li>
-							</ul>
-						</li>                
-						<li><a href="#">Help</a></li>
-						
+												
 						<security:authorize access="isAnonymous()">
 							<li class="loginLink"><a href="#">LOG In</a></li>
 							<li class="btn signupLink"><a href="#">sign up</a></li>
@@ -101,9 +79,17 @@
 							Wellcome, <%= SecurityUtil.getPrincipal().getFullName() %><i class="fa fa-angle-down" aria-hidden="true"></i>
 							</a>
 							<ul class="dropdown-menu level1">
-								<li><a href="<c:url value='/admin/home'/>">Admin Page</a></li>
+								<%
+								if (SecurityUtil.getAuthorities().contains("ADMIN_HOME")) {
+								%>
+								    <li><a href="<%= response.encodeURL(request.getContextPath() + "/admin/home") %>">Admin Page</a></li>
+								<%
+								}
+								%>
 								<li><a href="<c:url value='/profile'/>">My Profile</a></li>
 								<li><a href="<c:url value='/userfavorite'/>">User Favorite List</a></li>
+								<li><a href="<c:url value='/userrate'/>">Rated movies</a></li>
+								
 							</ul>
 						</li>      
 							<li class="btn"><a href="<c:url value='/logout'/>">Logout</a></li>

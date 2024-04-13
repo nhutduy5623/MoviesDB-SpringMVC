@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -13,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.laptrinhweb.dto.RelatedPartyWorkDetailDTO;
 import com.laptrinhweb.dto.WorkDTO;
 import com.laptrinhweb.entity.RelatedPartyWorkDetailEntity;
+import com.laptrinhweb.entity.SubGenreEntity;
 import com.laptrinhweb.entity.WorkEntity;
 import com.laptrinhweb.repository.IRelatedPartyRepository;
 import com.laptrinhweb.repository.IRelatedPartyWorkDetailRepository;
@@ -66,9 +68,8 @@ public class WorkService implements IWorkService{
 			work.getSubGenreList().clear();	
 			for(RelatedPartyWorkDetailEntity RP_Work_detail: work.getRelatedPartyDetailList()) {
 				relatedPartyWorkDetailRepository.delete(RP_Work_detail);
-			}
+			}			
 			work.getRelatedPartyDetailList().clear();
-			
 			workRepository.delete(id);
 		}
 	}
@@ -100,7 +101,10 @@ public class WorkService implements IWorkService{
 	
 	@Override
 	public WorkDTO findOneByCode(String code) {
-		return workConvert.toDTO(workRepository.findOneByCode(code));
+		WorkEntity workEntity = workRepository.findOneByCode(code);
+		if(workEntity!=null)
+			return workConvert.toDTO(workEntity);
+		return null;
 	}
 
 	@Override
@@ -192,6 +196,49 @@ public class WorkService implements IWorkService{
 	@Override
 	public List<WorkDTO> findByRelatedPartyCode(String code) {
 		List<WorkEntity> workEntities = workRepository.findByRelatedPartyCode(code);
+		List<WorkDTO> workDTOs = new ArrayList<>();
+		for(WorkEntity workEntity : workEntities) {
+			workDTOs.add(workConvert.toDTO(workEntity));
+		}
+		return workDTOs;
+	}
+
+	@Override
+	public List<WorkDTO> findTopByScore(int limit) {
+		Pageable pageable = new  PageRequest(1, limit);
+		List<WorkEntity> workEntities = workRepository.findTopByScore(pageable);
+		List<WorkDTO> workDTOs = new ArrayList<>();
+		for(WorkEntity workEntity : workEntities) {
+			workDTOs.add(workConvert.toDTO(workEntity));
+		}
+		return workDTOs;
+	}
+
+	@Override
+	public List<WorkDTO> findTopByVoteCount(int limit) {
+		Pageable pageable = new  PageRequest(1, limit);
+		List<WorkEntity> workEntities = workRepository.findTopByVoteCount(pageable);
+		List<WorkDTO> workDTOs = new ArrayList<>();
+		for(WorkEntity workEntity : workEntities) {
+			workDTOs.add(workConvert.toDTO(workEntity));
+		}
+		return workDTOs;
+	}
+
+	@Override
+	public List<WorkDTO> findTopByRelatedDate(int limit) {
+		Pageable pageable = new  PageRequest(1, limit);
+		List<WorkEntity> workEntities = workRepository.findTopByRelatedDate(pageable);
+		List<WorkDTO> workDTOs = new ArrayList<>();
+		for(WorkEntity workEntity : workEntities) {
+			workDTOs.add(workConvert.toDTO(workEntity));
+		}
+		return workDTOs;
+	}
+
+	@Override
+	public List<WorkDTO> findBySerieCode(String serieCode) {
+		List<WorkEntity> workEntities = workRepository.findBySerieCode(serieCode);
 		List<WorkDTO> workDTOs = new ArrayList<>();
 		for(WorkEntity workEntity : workEntities) {
 			workDTOs.add(workConvert.toDTO(workEntity));

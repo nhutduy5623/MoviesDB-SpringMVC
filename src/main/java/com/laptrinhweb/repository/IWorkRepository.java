@@ -74,5 +74,20 @@ public interface IWorkRepository extends JpaRepository<WorkEntity, Long>{
            "JOIN rpd.relatedParty rp " +
            "WHERE rp.code = :relatedPartyCode")
 	List<WorkEntity> findByRelatedPartyCode(@Param("relatedPartyCode") String relatedPartyCode);
+
+	@Query("SELECT w FROM WorkEntity w ORDER BY w.score DESC")
+	List<WorkEntity> findTopByScore(Pageable pageable);
+
+	@Query("SELECT w FROM WorkEntity w ORDER BY w.voteCount DESC")
+	List<WorkEntity> findTopByVoteCount(Pageable pageable);
+	
+	@Query("SELECT w FROM WorkEntity w ORDER BY w.relatedDate DESC")
+	List<WorkEntity> findTopByRelatedDate(Pageable pageable);
+	
+//	@Query("SELECT w FROM WorkEntity w WHERE w.code = :serieCode")
+//    List<WorkEntity> findBySerieCode(@Param("serieCode") String serieCode);
+	
+    @Query("SELECT s.workList FROM SerieEntity s WHERE s.code = :serieCode")
+    List<WorkEntity> findBySerieCode(@Param("serieCode") String serieCode);
 }
 

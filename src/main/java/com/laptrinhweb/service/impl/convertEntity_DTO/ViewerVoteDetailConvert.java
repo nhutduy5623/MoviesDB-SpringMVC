@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.laptrinhweb.dto.ViewerVoteDetailDTO;
+import com.laptrinhweb.dto.ViewerVoteDetailFullDTO;
 import com.laptrinhweb.entity.ViewerVoteDetailEntity;
 import com.laptrinhweb.repository.IUserRepository;
 import com.laptrinhweb.repository.IWorkRepository;
@@ -34,4 +35,11 @@ public class ViewerVoteDetailConvert {
 		voteDTO.setWorkCode(voteEntity.getWork().getCode());
 		return voteDTO;
 	}
+	
+	public ViewerVoteDetailFullDTO toDTOFull(ViewerVoteDetailEntity voteEntity) {
+		ViewerVoteDetailFullDTO voteDTO = new ViewerVoteDetailFullDTO();
+		voteDTO = modelMapper.map(voteEntity, ViewerVoteDetailFullDTO.class);
+		return voteDTO;
+	}
+
 }
